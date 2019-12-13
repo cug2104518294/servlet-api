@@ -1,20 +1,3 @@
-/*
- * Copyright (c) 2017, 2018 Oracle and/or its affiliates and others.
- * All rights reserved.
- *
- * This program and the accompanying materials are made available under the
- * terms of the Eclipse Public License v. 2.0, which is available at
- * http://www.eclipse.org/legal/epl-2.0.
- *
- * This Source Code may also be made available under the following Secondary
- * Licenses when the conditions for such availability set forth in the
- * Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
- * version 2 with the GNU Classpath Exception, which is available at
- * https://www.gnu.org/software/classpath/license.html.
- *
- * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
- */
-
 package javax.servlet;
 
 /**
@@ -42,37 +25,37 @@ public interface AsyncContext {
 
     /**
      * The name of the request attribute under which the original request URI is made available to the target of a
-     * {@link #dispatch(String)} or {@link #dispatch(ServletContext,String)}
+     * {@link #dispatch(String)} or {@link #dispatch(ServletContext, String)}
      */
     static final String ASYNC_REQUEST_URI = "javax.servlet.async.request_uri";
 
     /**
      * The name of the request attribute under which the original context path is made available to the target of a
-     * {@link #dispatch(String)} or {@link #dispatch(ServletContext,String)}
+     * {@link #dispatch(String)} or {@link #dispatch(ServletContext, String)}
      */
     static final String ASYNC_CONTEXT_PATH = "javax.servlet.async.context_path";
 
     /**
      * The name of the request attribute under which the original {@link javax.servlet.http.HttpServletMapping} is made
-     * available to the target of a {@link #dispatch(String)} or {@link #dispatch(ServletContext,String)}
+     * available to the target of a {@link #dispatch(String)} or {@link #dispatch(ServletContext, String)}
      */
     static final String ASYNC_MAPPING = "javax.servlet.async.mapping";
 
     /**
      * The name of the request attribute under which the original path info is made available to the target of a
-     * {@link #dispatch(String)} or {@link #dispatch(ServletContext,String)}
+     * {@link #dispatch(String)} or {@link #dispatch(ServletContext, String)}
      */
     static final String ASYNC_PATH_INFO = "javax.servlet.async.path_info";
 
     /**
      * The name of the request attribute under which the original servlet path is made available to the target of a
-     * {@link #dispatch(String)} or {@link #dispatch(ServletContext,String)}
+     * {@link #dispatch(String)} or {@link #dispatch(ServletContext, String)}
      */
     static final String ASYNC_SERVLET_PATH = "javax.servlet.async.servlet_path";
 
     /**
      * The name of the request attribute under which the original query string is made available to the target of a
-     * {@link #dispatch(String)} or {@link #dispatch(ServletContext,String)}
+     * {@link #dispatch(String)} or {@link #dispatch(ServletContext, String)}
      */
     static final String ASYNC_QUERY_STRING = "javax.servlet.async.query_string";
 
@@ -81,9 +64,8 @@ public interface AsyncContext {
      * {@link ServletRequest#startAsync(ServletRequest, ServletResponse)}.
      *
      * @return the request that was used to initialize this AsyncContext
-     *
-     * @exception IllegalStateException if {@link #complete} or any of the {@link #dispatch} methods has been called in
-     *                                  the asynchronous cycle
+     * @throws IllegalStateException if {@link #complete} or any of the {@link #dispatch} methods has been called in
+     *                               the asynchronous cycle
      */
     public ServletRequest getRequest();
 
@@ -92,16 +74,15 @@ public interface AsyncContext {
      * {@link ServletRequest#startAsync(ServletRequest, ServletResponse)}.
      *
      * @return the response that was used to initialize this AsyncContext
-     *
-     * @exception IllegalStateException if {@link #complete} or any of the {@link #dispatch} methods has been called in
-     *                                  the asynchronous cycle
+     * @throws IllegalStateException if {@link #complete} or any of the {@link #dispatch} methods has been called in
+     *                               the asynchronous cycle
      */
     public ServletResponse getResponse();
 
     /**
      * Checks if this AsyncContext was initialized with the original or application-wrapped request and response
      * objects.
-     * 
+     *
      * <p>
      * This information may be used by filters invoked in the <i>outbound</i> direction, after a request was put into
      * asynchronous mode, to determine whether any request and/or response wrappers that they added during their
@@ -109,15 +90,15 @@ public interface AsyncContext {
      * released.
      *
      * @return true if this AsyncContext was initialized with the original request and response objects by calling
-     *         {@link ServletRequest#startAsync()}, or if it was initialized by calling
-     *         {@link ServletRequest#startAsync(ServletRequest, ServletResponse)}, and neither the ServletRequest nor
-     *         ServletResponse arguments carried any application-provided wrappers; false otherwise
+     * {@link ServletRequest#startAsync()}, or if it was initialized by calling
+     * {@link ServletRequest#startAsync(ServletRequest, ServletResponse)}, and neither the ServletRequest nor
+     * ServletResponse arguments carried any application-provided wrappers; false otherwise
      */
     public boolean hasOriginalRequestAndResponse();
 
     /**
      * Dispatches the request and response objects of this AsyncContext to the servlet container.
-     * 
+     *
      * <p>
      * If the asynchronous cycle was started with {@link ServletRequest#startAsync(ServletRequest, ServletResponse)},
      * and the request passed is an instance of HttpServletRequest, then the dispatch is to the URI returned by
@@ -126,14 +107,14 @@ public interface AsyncContext {
      *
      * <p>
      * The following sequence illustrates how this will work:
-     * 
+     *
      * <pre>
      * {@code
      * // REQUEST dispatch to /url/A
      * AsyncContext ac = request.startAsync();
      * ...
      * ac.dispatch(); // ASYNC dispatch to /url/A
-     * 
+     *
      * // REQUEST to /url/A
      * // FORWARD dispatch to /url/B
      * request.getRequestDispatcher("/url/B").forward(request,response);
@@ -142,7 +123,7 @@ public interface AsyncContext {
      * ac = request.startAsync();
      * ...
      * ac.dispatch(); // ASYNC dispatch to /url/A
-     * 
+     *
      * // REQUEST to /url/A
      * // FORWARD dispatch to /url/B
      * request.getRequestDispatcher("/url/B").forward(request,response);
@@ -169,7 +150,7 @@ public interface AsyncContext {
      * Control over the request and response is delegated to the dispatch target, and the response will be closed when
      * the dispatch target has completed execution, unless {@link ServletRequest#startAsync()} or
      * {@link ServletRequest#startAsync(ServletRequest, ServletResponse)} are called.
-     * 
+     *
      * <p>
      * Any errors or exceptions that may occur during the execution of this method must be caught and handled by the
      * container, as follows:
@@ -194,7 +175,6 @@ public interface AsyncContext {
      *
      * @throws IllegalStateException if one of the dispatch methods has been called and the startAsync method has not
      *                               been called during the resulting dispatch, or if {@link #complete} was called
-     *
      * @see ServletRequest#getDispatcherType
      */
     public void dispatch();
@@ -226,10 +206,8 @@ public interface AsyncContext {
      *
      * @param path the path of the dispatch target, scoped to the ServletContext from which this AsyncContext was
      *             initialized
-     *
      * @throws IllegalStateException if one of the dispatch methods has been called and the startAsync method has not
      *                               been called during the resulting dispatch, or if {@link #complete} was called
-     *
      * @see ServletRequest#getDispatcherType
      */
     public void dispatch(String path);
@@ -261,10 +239,8 @@ public interface AsyncContext {
      *
      * @param context the ServletContext of the dispatch target
      * @param path    the path of the dispatch target, scoped to the given ServletContext
-     *
      * @throws IllegalStateException if one of the dispatch methods has been called and the startAsync method has not
      *                               been called during the resulting dispatch, or if {@link #complete} was called
-     *
      * @see ServletRequest#getDispatcherType
      */
     public void dispatch(ServletContext context, String path);
@@ -313,7 +289,6 @@ public interface AsyncContext {
      * {@link AsyncListener} is notified.
      *
      * @param listener the AsyncListener to be registered
-     * 
      * @throws IllegalStateException if this method is called after the container-initiated dispatch, during which one
      *                               of the {@link ServletRequest#startAsync} methods was called, has returned to the
      *                               container
@@ -343,7 +318,6 @@ public interface AsyncContext {
      * @param listener        the AsyncListener to be registered
      * @param servletRequest  the ServletRequest that will be included in the AsyncEvent
      * @param servletResponse the ServletResponse that will be included in the AsyncEvent
-     *
      * @throws IllegalStateException if this method is called after the container-initiated dispatch, during which one
      *                               of the {@link ServletRequest#startAsync} methods was called, has returned to the
      *                               container
@@ -363,44 +337,16 @@ public interface AsyncContext {
      * <p>
      * This method supports resource injection if the given <tt>clazz</tt> represents a Managed Bean. See the Jakarta EE
      * platform and CDI specifications for additional details about Managed Beans and resource injection.
-     * 
+     *
      * <p>
      * This method supports any annotations applicable to AsyncListener.
      *
-     * @param       <T> the class of the object to instantiate
+     * @param <T>   the class of the object to instantiate
      * @param clazz the AsyncListener class to instantiate
-     *
      * @return the new AsyncListener instance
-     *
      * @throws ServletException if the given <tt>clazz</tt> fails to be instantiated
      */
     public <T extends AsyncListener> T createListener(Class<T> clazz) throws ServletException;
-
-    /**
-     * Sets the timeout (in milliseconds) for this AsyncContext.
-     *
-     * <p>
-     * The timeout applies to this AsyncContext once the container-initiated dispatch during which one of the
-     * {@link ServletRequest#startAsync} methods was called has returned to the container.
-     *
-     * <p>
-     * The timeout will expire if neither the {@link #complete} method nor any of the dispatch methods are called. A
-     * timeout value of zero or less indicates no timeout.
-     * 
-     * <p>
-     * If {@link #setTimeout} is not called, then the container's default timeout, which is available via a call to
-     * {@link #getTimeout}, will apply.
-     *
-     * <p>
-     * The default value is <code>30000</code> ms.
-     *
-     * @param timeout the timeout in milliseconds
-     *
-     * @throws IllegalStateException if this method is called after the container-initiated dispatch, during which one
-     *                               of the {@link ServletRequest#startAsync} methods was called, has returned to the
-     *                               container
-     */
-    public void setTimeout(long timeout);
 
     /**
      * Gets the timeout (in milliseconds) for this AsyncContext.
@@ -415,5 +361,30 @@ public interface AsyncContext {
      * @return the timeout in milliseconds
      */
     public long getTimeout();
+
+    /**
+     * Sets the timeout (in milliseconds) for this AsyncContext.
+     *
+     * <p>
+     * The timeout applies to this AsyncContext once the container-initiated dispatch during which one of the
+     * {@link ServletRequest#startAsync} methods was called has returned to the container.
+     *
+     * <p>
+     * The timeout will expire if neither the {@link #complete} method nor any of the dispatch methods are called. A
+     * timeout value of zero or less indicates no timeout.
+     *
+     * <p>
+     * If {@link #setTimeout} is not called, then the container's default timeout, which is available via a call to
+     * {@link #getTimeout}, will apply.
+     *
+     * <p>
+     * The default value is <code>30000</code> ms.
+     *
+     * @param timeout the timeout in milliseconds
+     * @throws IllegalStateException if this method is called after the container-initiated dispatch, during which one
+     *                               of the {@link ServletRequest#startAsync} methods was called, has returned to the
+     *                               container
+     */
+    public void setTimeout(long timeout);
 
 }

@@ -23,15 +23,13 @@ import java.io.PrintWriter;
 import java.util.Locale;
 
 /**
- * 
  * Provides a convenient implementation of the ServletResponse interface that can be subclassed by developers wishing to
  * adapt the response from a Servlet. This class implements the Wrapper or Decorator pattern. Methods default to calling
  * through to the wrapped response object.
- * 
- * @author Various
- * @since Servlet 2.3
  *
+ * @author Various
  * @see javax.servlet.ServletResponse
+ * @since Servlet 2.3
  */
 public class ServletResponseWrapper implements ServletResponse {
     private ServletResponse response;
@@ -40,7 +38,6 @@ public class ServletResponseWrapper implements ServletResponse {
      * Creates a ServletResponse adaptor wrapping the given response object.
      *
      * @param response the {@link ServletResponse} to be wrapped
-     *
      * @throws java.lang.IllegalArgumentException if the response is null.
      */
     public ServletResponseWrapper(ServletResponse response) {
@@ -63,7 +60,6 @@ public class ServletResponseWrapper implements ServletResponse {
      * Sets the response being wrapped.
      *
      * @param response the {@link ServletResponse} to be installed
-     *
      * @throws java.lang.IllegalArgumentException if the response is null.
      */
     public void setResponse(ServletResponse response) {
@@ -71,6 +67,14 @@ public class ServletResponseWrapper implements ServletResponse {
             throw new IllegalArgumentException("Response cannot be null");
         }
         this.response = response;
+    }
+
+    /**
+     * The default behavior of this method is to return getCharacterEncoding() on the wrapped response object.
+     */
+    @Override
+    public String getCharacterEncoding() {
+        return this.response.getCharacterEncoding();
     }
 
     /**
@@ -82,14 +86,6 @@ public class ServletResponseWrapper implements ServletResponse {
     @Override
     public void setCharacterEncoding(String charset) {
         this.response.setCharacterEncoding(charset);
-    }
-
-    /**
-     * The default behavior of this method is to return getCharacterEncoding() on the wrapped response object.
-     */
-    @Override
-    public String getCharacterEncoding() {
-        return this.response.getCharacterEncoding();
     }
 
     /**
@@ -125,14 +121,6 @@ public class ServletResponseWrapper implements ServletResponse {
     }
 
     /**
-     * The default behavior of this method is to call setContentType(String type) on the wrapped response object.
-     */
-    @Override
-    public void setContentType(String type) {
-        this.response.setContentType(type);
-    }
-
-    /**
      * The default behavior of this method is to return getContentType() on the wrapped response object.
      *
      * @since Servlet 2.4
@@ -143,11 +131,11 @@ public class ServletResponseWrapper implements ServletResponse {
     }
 
     /**
-     * The default behavior of this method is to call setBufferSize(int size) on the wrapped response object.
+     * The default behavior of this method is to call setContentType(String type) on the wrapped response object.
      */
     @Override
-    public void setBufferSize(int size) {
-        this.response.setBufferSize(size);
+    public void setContentType(String type) {
+        this.response.setContentType(type);
     }
 
     /**
@@ -156,6 +144,14 @@ public class ServletResponseWrapper implements ServletResponse {
     @Override
     public int getBufferSize() {
         return this.response.getBufferSize();
+    }
+
+    /**
+     * The default behavior of this method is to call setBufferSize(int size) on the wrapped response object.
+     */
+    @Override
+    public void setBufferSize(int size) {
+        this.response.setBufferSize(size);
     }
 
     /**
@@ -191,14 +187,6 @@ public class ServletResponseWrapper implements ServletResponse {
     }
 
     /**
-     * The default behavior of this method is to call setLocale(Locale loc) on the wrapped response object.
-     */
-    @Override
-    public void setLocale(Locale loc) {
-        this.response.setLocale(loc);
-    }
-
-    /**
      * The default behavior of this method is to return getLocale() on the wrapped response object.
      */
     @Override
@@ -207,12 +195,18 @@ public class ServletResponseWrapper implements ServletResponse {
     }
 
     /**
+     * The default behavior of this method is to call setLocale(Locale loc) on the wrapped response object.
+     */
+    @Override
+    public void setLocale(Locale loc) {
+        this.response.setLocale(loc);
+    }
+
+    /**
      * Checks (recursively) if this ServletResponseWrapper wraps the given {@link ServletResponse} instance.
      *
      * @param wrapped the ServletResponse instance to search for
-     *
      * @return true if this ServletResponseWrapper wraps the given ServletResponse instance, false otherwise
-     *
      * @since Servlet 3.0
      */
     public boolean isWrapperFor(ServletResponse wrapped) {
@@ -229,11 +223,8 @@ public class ServletResponseWrapper implements ServletResponse {
      * Checks (recursively) if this ServletResponseWrapper wraps a {@link ServletResponse} of the given class type.
      *
      * @param wrappedType the ServletResponse class type to search for
-     *
      * @return true if this ServletResponseWrapper wraps a ServletResponse of the given class type, false otherwise
-     *
      * @throws IllegalArgumentException if the given class does not implement {@link ServletResponse}
-     *
      * @since Servlet 3.0
      */
     public boolean isWrapperFor(Class<?> wrappedType) {

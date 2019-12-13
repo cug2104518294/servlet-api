@@ -1,21 +1,3 @@
-/*
- * Copyright (c) 1997-2018 Oracle and/or its affiliates and others.
- * All rights reserved.
- * Copyright 2004 The Apache Software Foundation
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package javax.servlet;
 
 import java.io.IOException;
@@ -47,41 +29,37 @@ import java.io.IOException;
  * to return basic information about itself, such as author, version, and copyright.
  *
  * @author Various
- *
  * @see GenericServlet
  * @see javax.servlet.http.HttpServlet
- *
  */
 public interface Servlet {
 
     /**
      * Called by the servlet container to indicate to a servlet that the servlet is being placed into service.
-     *
      * <p>
-     * The servlet container calls the <code>init</code> method exactly once after instantiating the servlet. The
-     * <code>init</code> method must complete successfully before the servlet can receive any requests.
-     *
+     * The servlet container calls the init method exactly once after instantiating the servlet. The
+     * init method must complete successfully before the servlet can receive any requests.
      * <p>
-     * The servlet container cannot place the servlet into service if the <code>init</code> method
+     * The servlet container cannot place the servlet into service if the init method
      * <ol>
      * <li>Throws a <code>ServletException</code>
      * <li>Does not return within a time period defined by the Web server
      * </ol>
      *
-     *
      * @param config a <code>ServletConfig</code> object containing the servlet's configuration and initialization
      *               parameters
-     *
-     * @exception ServletException if an exception has occurred that interferes with the servlet's normal operation
-     *
+     * @throws ServletException if an exception has occurred that interferes with the servlet's normal operation
      * @see UnavailableException
      * @see #getServletConfig
-     *
      */
-    public void init(ServletConfig config) throws ServletException;
+    /**
+     * 负责初始化Servlet对象
+     * 在Servlet的生命周期中，该方法执行一次
+     * 该方法执行在单线程的环境下，因此开发者不用考虑线程安全的问题
+     */
+    void init(ServletConfig config) throws ServletException;
 
     /**
-     *
      * Returns a {@link ServletConfig} object, which contains initialization and startup parameters for this servlet.
      * The <code>ServletConfig</code> object returned is the one passed to the <code>init</code> method.
      *
@@ -90,51 +68,48 @@ public interface Servlet {
      * method can return it. The {@link GenericServlet} class, which implements this interface, already does this.
      *
      * @return the <code>ServletConfig</code> object that initializes this servlet
-     *
      * @see #init
-     *
      */
-    public ServletConfig getServletConfig();
+    ServletConfig getServletConfig();
 
     /**
      * Called by the servlet container to allow the servlet to respond to a request.
      *
      * <p>
      * This method is only called after the servlet's <code>init()</code> method has completed successfully.
-     * 
+     *
      * <p>
      * The status code of the response always should be set for a servlet that throws or sends an error.
      *
-     * 
+     *
      * <p>
      * Servlets typically run inside multithreaded servlet containers that can handle multiple requests concurrently.
      * Developers must be aware to synchronize access to any shared resources such as files, network connections, and as
      * well as the servlet's class and instance variables.
      *
      * @param req the <code>ServletRequest</code> object that contains the client's request
-     *
      * @param res the <code>ServletResponse</code> object that contains the servlet's response
-     *
-     * @exception ServletException if an exception occurs that interferes with the servlet's normal operation
-     *
-     * @exception IOException      if an input or output exception occurs
-     *
+     * @throws ServletException if an exception occurs that interferes with the servlet's normal operation
+     * @throws IOException      if an input or output exception occurs
      */
-    public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException;
+    /**
+     * 负责响应客户的请求
+     * 为了提高效率，Servlet规范要求一个 Servlet 实例必须能够同时服务于多个客户端请求
+     * 即 service() 方法运行在多线程的环境下，Servlet 开发者必须保证该方法的线程安全性
+     */
+    void service(ServletRequest req, ServletResponse res) throws ServletException, IOException;
 
     /**
      * Returns information about the servlet, such as author, version, and copyright.
-     * 
+     *
      * <p>
      * The string that this method returns should be plain text and not markup of any kind (such as HTML, XML, etc.).
      *
      * @return a <code>String</code> containing servlet information
-     *
      */
-    public String getServletInfo();
+    String getServletInfo();
 
     /**
-     *
      * Called by the servlet container to indicate to a servlet that the servlet is being taken out of service. This
      * method is only called once all threads within the servlet's <code>service</code> method have exited or after a
      * timeout period has passed. After the servlet container calls this method, it will not call the
@@ -144,7 +119,9 @@ public interface Servlet {
      * This method gives the servlet an opportunity to clean up any resources that are being held (for example, memory,
      * file handles, threads) and make sure that any persistent state is synchronized with the servlet's current state
      * in memory.
-     *
      */
-    public void destroy();
+    /**
+     * 当 Servlet 对象退出生命周期时，负责释放占用的资源
+     */
+    void destroy();
 }

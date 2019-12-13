@@ -19,7 +19,6 @@
 package javax.servlet.http;
 
 /**
- *
  * Events of this type are either sent to an object that implements {@link HttpSessionBindingListener} when it is bound
  * or unbound from a session, or to a {@link HttpSessionAttributeListener} that has been configured in the deployment
  * descriptor when any attribute is bound, unbound or replaced in a session.
@@ -29,7 +28,6 @@ package javax.servlet.http;
  * <code>HttpSession.removeAttribute</code>.
  *
  * @author Various
- * 
  * @see HttpSession
  * @see HttpSessionBindingListener
  * @see HttpSessionAttributeListener
@@ -45,13 +43,11 @@ public class HttpSessionBindingEvent extends HttpSessionEvent {
     private Object value;
 
     /**
-     *
      * Constructs an event that notifies an object that it has been bound to or unbound from a session. To receive the
      * event, the object must implement {@link HttpSessionBindingListener}.
      *
      * @param session the session to which the object is bound or unbound
      * @param name    the name with which the object is bound or unbound
-     *
      * @see #getName
      * @see #getSession
      */
@@ -61,14 +57,12 @@ public class HttpSessionBindingEvent extends HttpSessionEvent {
     }
 
     /**
-     *
      * Constructs an event that notifies an object that it has been bound to or unbound from a session. To receive the
      * event, the object must implement {@link HttpSessionBindingListener}.
      *
      * @param session the session to which the object is bound or unbound
      * @param name    the name with which the object is bound or unbound
      * @param value   the object that is bound or unbound
-     *
      * @see #getName
      * @see #getSession
      */
@@ -78,7 +72,9 @@ public class HttpSessionBindingEvent extends HttpSessionEvent {
         this.value = value;
     }
 
-    /** Return the session that changed. */
+    /**
+     * Return the session that changed.
+     */
     @Override
     public HttpSession getSession() {
         return super.getSession();
@@ -99,7 +95,6 @@ public class HttpSessionBindingEvent extends HttpSessionEvent {
      * removed attribute. If the attribute was replaced, this is the old value of the attribute.
      *
      * @return the value of the attribute that has been added, removed or replaced
-     *
      * @since Servlet 2.3
      */
     public Object getValue() {

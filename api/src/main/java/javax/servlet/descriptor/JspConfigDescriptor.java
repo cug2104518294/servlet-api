@@ -38,9 +38,9 @@ public interface JspConfigDescriptor {
      * Any changes to the returned <code>Collection</code> must not affect this <code>JspConfigDescriptor</code>.
      *
      * @return a (possibly empty) <code>Collection</code> of the <code>&lt;taglib&gt;</code> child elements of the
-     *         <code>&lt;jsp-config&gt;</code> element represented by this <code>JspConfigDescriptor</code>
+     * <code>&lt;jsp-config&gt;</code> element represented by this <code>JspConfigDescriptor</code>
      */
-    public Collection<TaglibDescriptor> getTaglibs();
+    Collection<TaglibDescriptor> getTaglibs();
 
     /**
      * Gets the <code>&lt;jsp-property-group&gt;</code> child elements of the <code>&lt;jsp-config&gt;</code> element
@@ -50,7 +50,7 @@ public interface JspConfigDescriptor {
      * Any changes to the returned <code>Collection</code> must not affect this <code>JspConfigDescriptor</code>.
      *
      * @return a (possibly empty) <code>Collection</code> of the <code>&lt;jsp-property-group&gt;</code> child elements
-     *         of the <code>&lt;jsp-config&gt;</code> element represented by this <code>JspConfigDescriptor</code>
+     * of the <code>&lt;jsp-config&gt;</code> element represented by this <code>JspConfigDescriptor</code>
      */
-    public Collection<JspPropertyGroupDescriptor> getJspPropertyGroups();
+    Collection<JspPropertyGroupDescriptor> getJspPropertyGroups();
 }

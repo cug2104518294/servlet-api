@@ -1,27 +1,13 @@
-/*
- * Copyright (c) 1997-2018 Oracle and/or its affiliates and others.
- * All rights reserved.
- * Copyright 2004 The Apache Software Foundation
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package javax.servlet;
 
 import java.util.Enumeration;
 
 /**
  * A servlet configuration object used by a servlet container to pass information to a servlet during initialization.
+ */
+
+/**
+ * servlet 容器使用的 servlet 配置对象在初始化期间将信息传递给 servlet
  */
 public interface ServletConfig {
 
@@ -32,26 +18,36 @@ public interface ServletConfig {
      *
      * @return the name of the servlet instance
      */
-    public String getServletName();
+
+    /**
+     * 返回此 servlet 实例的名称
+     * 在 web.xml 对应于 servlet-name 结点(<servlet><servlet-name></servlet-name></servlet>)
+     * 或者对应于注解 @WebServlet(value = "/hello", name = "HelloServlet") 中的 name 属性
+     */
+    String getServletName();
 
     /**
      * Returns a reference to the {@link ServletContext} in which the caller is executing.
-     *
      * @return a {@link ServletContext} object, used by the caller to interact with its servlet container
-     * 
-     * @see ServletContext
      */
-    public ServletContext getServletContext();
+    /**
+     * 返回调用者正在执行的 ServletContext 的引用
+     */
+    ServletContext getServletContext();
 
     /**
      * Gets the value of the initialization parameter with the given name.
      *
      * @param name the name of the initialization parameter whose value to get
-     *
      * @return a <code>String</code> containing the value of the initialization parameter, or <code>null</code> if the
-     *         initialization parameter does not exist
+     * initialization parameter does not exist
      */
-    public String getInitParameter(String name);
+    /**
+     * 获取具有给定名称的初始化参数的值
+     * 在 web.xml 对应于 <init-param><param-name></param-name><param-value></param-value></init-param>
+     * 使用注解 @WebServlet(value = "/hello", name = "HelloServlet", initParams = {@WebInitParam(name = "name", value = "lgh")})
+     */
+    String getInitParameter(String name);
 
     /**
      * Returns the names of the servlet's initialization parameters as an <code>Enumeration</code> of
@@ -59,8 +55,12 @@ public interface ServletConfig {
      * parameters.
      *
      * @return an <code>Enumeration</code> of <code>String</code> objects containing the names of the servlet's
-     *         initialization parameters
+     * initialization parameters
      */
-    public Enumeration<String> getInitParameterNames();
+    /**
+     * 以 Enumeration<String> 形式返回 Servlet 的初始化参数的名称
+     * 如果 Servlet 没有初始化参数，则返回一个空的 Enumeration
+     */
+    Enumeration<String> getInitParameterNames();
 
 }

@@ -1,20 +1,3 @@
-/*
- * Copyright (c) 2017, 2018 Oracle and/or its affiliates and others.
- * All rights reserved.
- *
- * This program and the accompanying materials are made available under the
- * terms of the Eclipse Public License v. 2.0, which is available at
- * http://www.eclipse.org/legal/epl-2.0.
- *
- * This Source Code may also be made available under the following Secondary
- * Licenses when the conditions for such availability set forth in the
- * Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
- * version 2 with the GNU Classpath Exception, which is available at
- * https://www.gnu.org/software/classpath/license.html.
- *
- * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
- */
-
 package javax.servlet;
 
 import javax.servlet.annotation.HttpConstraint;
@@ -83,7 +66,7 @@ public class HttpConstraintElement {
      * specified when a non-empty array is specified for <tt>getRolesAllowed</tt>.
      *
      * @return the {@link EmptyRoleSemantic} to be applied when <code>getRolesAllowed</code> returns an empty (that is,
-     *         zero-length) array
+     * zero-length) array
      */
     public EmptyRoleSemantic getEmptyRoleSemantic() {
         return this.emptyRoleSemantic;
@@ -107,12 +90,12 @@ public class HttpConstraintElement {
      * has no special meaning as a role name (should it occur in getRolesAllowed).
      *
      * @return a (possibly empty) array of role names. When the array is empty, its meaning depends on the value of
-     *         {@link #getEmptyRoleSemantic}. If its value is <tt>DENY</tt>, and <code>getRolesAllowed</code> returns an
-     *         empty array, access is to be denied independent of authentication state and identity. Conversely, if its
-     *         value is <code>PERMIT</code>, it indicates that access is to be allowed independent of authentication
-     *         state and identity. When the array contains the names of one or more roles, it indicates that access is
-     *         contingent on membership in at least one of the named roles (independent of the value of
-     *         {@link #getEmptyRoleSemantic}).
+     * {@link #getEmptyRoleSemantic}. If its value is <tt>DENY</tt>, and <code>getRolesAllowed</code> returns an
+     * empty array, access is to be denied independent of authentication state and identity. Conversely, if its
+     * value is <code>PERMIT</code>, it indicates that access is to be allowed independent of authentication
+     * state and identity. When the array contains the names of one or more roles, it indicates that access is
+     * contingent on membership in at least one of the named roles (independent of the value of
+     * {@link #getEmptyRoleSemantic}).
      */
     public String[] getRolesAllowed() {
         return copyStrings(this.rolesAllowed);

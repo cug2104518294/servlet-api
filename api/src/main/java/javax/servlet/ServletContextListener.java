@@ -33,7 +33,6 @@ import java.util.EventListener;
  * have been declared, and at their {@link #contextDestroyed} method in reverse order.
  *
  * @see ServletContextEvent
- *
  * @since Servlet 2.3
  */
 public interface ServletContextListener extends EventListener {
@@ -46,7 +45,6 @@ public interface ServletContextListener extends EventListener {
      * application are initialized.
      *
      * @param sce the ServletContextEvent containing the ServletContext that is being initialized
-     *
      * @implSpec The default implementation takes no action.
      */
     default public void contextInitialized(ServletContextEvent sce) {
@@ -60,7 +58,6 @@ public interface ServletContextListener extends EventListener {
      * destruction.
      *
      * @param sce the ServletContextEvent containing the ServletContext that is being destroyed
-     *
      * @implSpec The default implementation takes no action.
      */
     default public void contextDestroyed(ServletContextEvent sce) {

@@ -1,21 +1,3 @@
-/*
- * Copyright (c) 1997-2018 Oracle and/or its affiliates and others.
- * All rights reserved.
- * Copyright 2004 The Apache Software Foundation
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package javax.servlet;
 
 import java.io.IOException;
@@ -30,7 +12,6 @@ import java.io.IOException;
  * objects to wrap any type of resource.
  *
  * @author Various
- *
  * @see ServletContext#getRequestDispatcher(java.lang.String)
  * @see ServletContext#getNamedDispatcher(java.lang.String)
  * @see ServletRequest#getRequestDispatcher(java.lang.String)
@@ -39,75 +20,75 @@ public interface RequestDispatcher {
 
     /**
      * The name of the request attribute under which the original request URI is made available to the target of a
-     * {@link #forward(ServletRequest,ServletResponse) forward}
+     * {@link #forward(ServletRequest, ServletResponse) forward}
      */
     static final String FORWARD_REQUEST_URI = "javax.servlet.forward.request_uri";
 
     /**
      * The name of the request attribute under which the original context path is made available to the target of a
-     * {@link #forward(ServletRequest,ServletResponse) forward}
+     * {@link #forward(ServletRequest, ServletResponse) forward}
      */
     static final String FORWARD_CONTEXT_PATH = "javax.servlet.forward.context_path";
 
     /**
      * The name of the request attribute under which the original {@link javax.servlet.http.HttpServletMapping} is made
-     * available to the target of a {@link #forward(ServletRequest,ServletResponse) forward}
-     * 
+     * available to the target of a {@link #forward(ServletRequest, ServletResponse) forward}
+     *
      * @since 4.0
      */
     static final String FORWARD_MAPPING = "javax.servlet.forward.mapping";
 
     /**
      * The name of the request attribute under which the original path info is made available to the target of a
-     * {@link #forward(ServletRequest,ServletResponse) forward}
+     * {@link #forward(ServletRequest, ServletResponse) forward}
      */
     static final String FORWARD_PATH_INFO = "javax.servlet.forward.path_info";
 
     /**
      * The name of the request attribute under which the original servlet path is made available to the target of a
-     * {@link #forward(ServletRequest,ServletResponse) forward}
+     * {@link #forward(ServletRequest, ServletResponse) forward}
      */
     static final String FORWARD_SERVLET_PATH = "javax.servlet.forward.servlet_path";
 
     /**
      * The name of the request attribute under which the original query string is made available to the target of a
-     * {@link #forward(ServletRequest,ServletResponse) forward}
+     * {@link #forward(ServletRequest, ServletResponse) forward}
      */
     static final String FORWARD_QUERY_STRING = "javax.servlet.forward.query_string";
 
     /**
      * The name of the request attribute under which the request URI of the target of an
-     * {@link #include(ServletRequest,ServletResponse) include} is stored
+     * {@link #include(ServletRequest, ServletResponse) include} is stored
      */
     static final String INCLUDE_REQUEST_URI = "javax.servlet.include.request_uri";
 
     /**
      * The name of the request attribute under which the context path of the target of an
-     * {@link #include(ServletRequest,ServletResponse) include} is stored
+     * {@link #include(ServletRequest, ServletResponse) include} is stored
      */
     static final String INCLUDE_CONTEXT_PATH = "javax.servlet.include.context_path";
 
     /**
      * The name of the request attribute under which the path info of the target of an
-     * {@link #include(ServletRequest,ServletResponse) include} is stored
+     * {@link #include(ServletRequest, ServletResponse) include} is stored
      */
     static final String INCLUDE_PATH_INFO = "javax.servlet.include.path_info";
 
     /**
      * The name of the request attribute under which the {@link javax.servlet.http.HttpServletMapping} of the target of
-     * an {@link #include(ServletRequest,ServletResponse) include} is stored
+     * an {@link #include(ServletRequest, ServletResponse) include} is stored
      */
     static final String INCLUDE_MAPPING = "javax.servlet.include.mapping";
 
     /**
      * The name of the request attribute under which the servlet path of the target of an
-     * {@link #include(ServletRequest,ServletResponse) include} is stored
+     * {@link #include(ServletRequest, ServletResponse) include} is stored
      */
     static final String INCLUDE_SERVLET_PATH = "javax.servlet.include.servlet_path";
 
     /**
      * The name of the request attribute under which the query string of the target of an
-     * {@link #include(ServletRequest,ServletResponse) include} is stored
+     * {@link #include(ServletRequest, ServletResponse) include} is stored
      */
     static final String INCLUDE_QUERY_STRING = "javax.servlet.include.query_string";
 
@@ -169,21 +150,15 @@ public interface RequestDispatcher {
      * This method sets the dispatcher type of the given request to <code>DispatcherType.FORWARD</code>.
      *
      * @param request  a {@link ServletRequest} object that represents the request the client makes of the servlet
-     *
      * @param response a {@link ServletResponse} object that represents the response the servlet returns to the client
-     *
      * @throws ServletException      if the target resource throws this exception
-     *
      * @throws IOException           if the target resource throws this exception
-     *
      * @throws IllegalStateException if the response was already committed
-     *
      * @see ServletRequest#getDispatcherType
      */
     public void forward(ServletRequest request, ServletResponse response) throws ServletException, IOException;
 
     /**
-     *
      * Includes the content of a resource (servlet, JSP page, HTML file) in the response. In essence, this method
      * enables programmatic server-side includes.
      *
@@ -200,13 +175,9 @@ public interface RequestDispatcher {
      * This method sets the dispatcher type of the given request to <code>DispatcherType.INCLUDE</code>.
      *
      * @param request  a {@link ServletRequest} object that contains the client's request
-     *
      * @param response a {@link ServletResponse} object that contains the servlet's response
-     *
      * @throws ServletException if the included resource throws this exception
-     *
      * @throws IOException      if the included resource throws this exception
-     *
      * @see ServletRequest#getDispatcherType
      */
     public void include(ServletRequest request, ServletResponse response) throws ServletException, IOException;

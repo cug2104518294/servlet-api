@@ -18,10 +18,12 @@
 
 package javax.servlet.http;
 
-import java.io.IOException;
-import java.util.*;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequestWrapper;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Enumeration;
+import java.util.Map;
 
 /**
  * Provides a convenient implementation of the HttpServletRequest interface that can be subclassed by developers wishing
@@ -30,7 +32,7 @@ import javax.servlet.ServletRequestWrapper;
  * <p>
  * This class implements the Wrapper or Decorator pattern. Methods default to calling through to the wrapped request
  * object.
- * 
+ *
  * @see javax.servlet.http.HttpServletRequest
  * @since Servlet 2.3
  */
@@ -40,7 +42,6 @@ public class HttpServletRequestWrapper extends ServletRequestWrapper implements 
      * Constructs a request object wrapping the given request.
      *
      * @param request the {@link HttpServletRequest} to be wrapped.
-     *
      * @throws java.lang.IllegalArgumentException if the request is null
      */
     public HttpServletRequestWrapper(HttpServletRequest request) {

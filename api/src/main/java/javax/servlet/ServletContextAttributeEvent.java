@@ -22,7 +22,6 @@ package javax.servlet;
  * Event class for notifications about changes to the attributes of the ServletContext of a web application.
  *
  * @see ServletContextAttributeListener
- *
  * @since Servlet 2.3
  */
 public class ServletContextAttributeEvent extends ServletContextEvent {

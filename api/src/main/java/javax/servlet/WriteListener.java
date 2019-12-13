@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.util.EventListener;
 
 /**
- *
  * Callback notification mechanism that signals to the developer it's possible to write content without blocking.
  *
  * @since Servlet 3.1

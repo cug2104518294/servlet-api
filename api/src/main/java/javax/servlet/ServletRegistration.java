@@ -17,7 +17,8 @@
 
 package javax.servlet;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Set;
 
 /**
  * Interface through which a {@link Servlet} may be further configured.
@@ -41,9 +42,7 @@ public interface ServletRegistration extends Registration {
      * </p>
      *
      * @param urlPatterns the URL patterns of the servlet mapping
-     *
      * @return the (possibly empty) Set of URL patterns that are already mapped to a different Servlet
-     *
      * @throws IllegalArgumentException if <tt>urlPatterns</tt> is null or empty
      * @throws IllegalStateException    if the ServletContext from which this ServletRegistration was obtained has
      *                                  already been initialized
@@ -58,13 +57,13 @@ public interface ServletRegistration extends Registration {
      * <code>ServletRegistration</code>.
      *
      * @return a (possibly empty) <code>Collection</code> of the currently available mappings of the Servlet represented
-     *         by this <code>ServletRegistration</code>
+     * by this <code>ServletRegistration</code>
      */
     public Collection<String> getMappings();
 
     /**
      * Gets the name of the runAs role of the Servlet represented by this <code>ServletRegistration</code>.
-     * 
+     *
      * @return the name of the runAs role, or null if the Servlet is configured to run as its caller
      */
     public String getRunAsRole();
@@ -95,7 +94,6 @@ public interface ServletRegistration extends Registration {
          * A call to this method overrides any previous setting.
          *
          * @param loadOnStartup the initialization priority of the Servlet
-         *
          * @throws IllegalStateException if the ServletContext from which this ServletRegistration was obtained has
          *                               already been initialized
          */
@@ -108,17 +106,17 @@ public interface ServletRegistration extends Registration {
          * <p>
          * This method applies to all mappings added to this <code>ServletRegistration</code> up until the point that
          * the <code>ServletContext</code> from which it was obtained has been initialized.
-         * 
+         *
          * <p>
          * If a URL pattern of this ServletRegistration is an exact target of a <code>security-constraint</code> that
          * was established via the portable deployment descriptor, then this method does not change the
          * <code>security-constraint</code> for that pattern, and the pattern will be included in the return value.
-         * 
+         *
          * <p>
          * If a URL pattern of this ServletRegistration is an exact target of a security constraint that was established
          * via the {@link javax.servlet.annotation.ServletSecurity} annotation or a previous call to this method, then
          * this method replaces the security constraint for that pattern.
-         * 
+         *
          * <p>
          * If a URL pattern of this ServletRegistration is neither the exact target of a security constraint that was
          * established via the {@link javax.servlet.annotation.ServletSecurity} annotation or a previous call to this
@@ -130,16 +128,13 @@ public interface ServletRegistration extends Registration {
          * The returned set is not backed by the {@code Dynamic} object, so changes in the returned set are not
          * reflected in the {@code Dynamic} object, and vice-versa.
          * </p>
-         * 
+         *
          * @param constraint the {@link ServletSecurityElement} to be applied to the patterns mapped to this
          *                   ServletRegistration
-         * 
          * @return the (possibly empty) Set of URL patterns that were already the exact target of a
-         *         <code>security-constraint</code> that was established via the portable deployment descriptor. This
-         *         method has no effect on the patterns included in the returned set
-         * 
+         * <code>security-constraint</code> that was established via the portable deployment descriptor. This
+         * method has no effect on the patterns included in the returned set
          * @throws IllegalArgumentException if <tt>constraint</tt> is null
-         * 
          * @throws IllegalStateException    if the {@link ServletContext} from which this
          *                                  <code>ServletRegistration</code> was obtained has already been initialized
          */
@@ -152,9 +147,7 @@ public interface ServletRegistration extends Registration {
          *
          * @param multipartConfig the {@link MultipartConfigElement} to be applied to the patterns mapped to the
          *                        registration
-         *
          * @throws IllegalArgumentException if <tt>multipartConfig</tt> is null
-         *
          * @throws IllegalStateException    if the {@link ServletContext} from which this ServletRegistration was
          *                                  obtained has already been initialized
          */
@@ -164,9 +157,7 @@ public interface ServletRegistration extends Registration {
          * Sets the name of the <code>runAs</code> role for this <code>ServletRegistration</code>.
          *
          * @param roleName the name of the <code>runAs</code> role
-         *
          * @throws IllegalArgumentException if <tt>roleName</tt> is null
-         *
          * @throws IllegalStateException    if the {@link ServletContext} from which this ServletRegistration was
          *                                  obtained has already been initialized
          */

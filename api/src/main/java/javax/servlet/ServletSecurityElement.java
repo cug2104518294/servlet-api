@@ -17,9 +17,11 @@
 
 package javax.servlet;
 
-import java.util.*;
 import javax.servlet.annotation.HttpMethodConstraint;
 import javax.servlet.annotation.ServletSecurity;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 
 /**
  * Java Class representation of a {@link ServletSecurity} annotation value.
@@ -57,7 +59,6 @@ public class ServletSecurityElement extends HttpConstraintElement {
      * element and with a collection of HTTP Method specific constraint elements.
      *
      * @param methodConstraints the collection of HTTP method specific constraint elements
-     *
      * @throws IllegalArgumentException if duplicate method names are detected
      */
     public ServletSecurityElement(Collection<HttpMethodConstraintElement> methodConstraints) {
@@ -72,11 +73,10 @@ public class ServletSecurityElement extends HttpConstraintElement {
      * @param constraint        the HttpConstraintElement to be applied to all HTTP methods other than those represented
      *                          in the <tt>methodConstraints</tt>
      * @param methodConstraints the collection of HTTP method specific constraint elements.
-     *
      * @throws IllegalArgumentException if duplicate method names are detected
      */
     public ServletSecurityElement(HttpConstraintElement constraint,
-            Collection<HttpMethodConstraintElement> methodConstraints) {
+                                  Collection<HttpMethodConstraintElement> methodConstraints) {
         super(constraint.getEmptyRoleSemantic(), constraint.getTransportGuarantee(), constraint.getRolesAllowed());
         this.methodConstraints = (methodConstraints == null ? new HashSet<>() : methodConstraints);
         methodNames = checkMethodNames(this.methodConstraints);
@@ -86,7 +86,6 @@ public class ServletSecurityElement extends HttpConstraintElement {
      * Constructs an instance from a {@link ServletSecurity} annotation value.
      *
      * @param annotation the annotation value
-     *
      * @throws IllegalArgumentException if duplicate method names are detected
      */
     public ServletSecurityElement(ServletSecurity annotation) {
@@ -106,7 +105,6 @@ public class ServletSecurityElement extends HttpConstraintElement {
      * If permitted, any changes to the returned <code>Collection</code> must not affect this
      * <code>ServletSecurityElement</code>.
      *
-     *
      * @return the (possibly empty) collection of HttpMethodConstraintElement objects
      */
     public Collection<HttpMethodConstraintElement> getHttpMethodConstraints() {
@@ -120,8 +118,6 @@ public class ServletSecurityElement extends HttpConstraintElement {
      * If permitted, any changes to the returned <code>Collection</code> must not affect this
      * <code>ServletSecurityElement</code>.
      *
-     *
-     * 
      * @return the collection String method names
      */
     public Collection<String> getMethodNames() {
@@ -132,10 +128,8 @@ public class ServletSecurityElement extends HttpConstraintElement {
      * Checks for duplicate method names in methodConstraints.
      *
      * @param methodConstraints
-     *
-     * @retrun Set of method names
-     *
      * @throws IllegalArgumentException if duplicate method names are detected
+     * @retrun Set of method names
      */
     private Collection<String> checkMethodNames(Collection<HttpMethodConstraintElement> methodConstraints) {
         Collection<String> methodNames = new HashSet<>();

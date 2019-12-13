@@ -38,9 +38,9 @@ public interface JspPropertyGroupDescriptor {
      * Any changes to the returned <code>Collection</code> must not affect this <code>JspPropertyGroupDescriptor</code>.
      *
      * @return a (possibly empty) <code>Collection</code> of the URL patterns of the JSP property group represented by
-     *         this <code>JspPropertyGroupDescriptor</code>
+     * this <code>JspPropertyGroupDescriptor</code>
      */
-    public Collection<String> getUrlPatterns();
+    Collection<String> getUrlPatterns();
 
     /**
      * Gets the value of the <code>el-ignored</code> configuration, which specifies whether Expression Language (EL)
@@ -49,7 +49,7 @@ public interface JspPropertyGroupDescriptor {
      *
      * @return the value of the <code>el-ignored</code> configuration, or null if unspecified
      */
-    public String getElIgnored();
+    String getElIgnored();
 
     /**
      * Gets the value of the <code>page-encoding</code> configuration, which specifies the default page encoding for any
@@ -65,7 +65,7 @@ public interface JspPropertyGroupDescriptor {
      *
      * @return the value of the <code>scripting-invalid</code> configuration, or null if unspecified
      */
-    public String getScriptingInvalid();
+    String getScriptingInvalid();
 
     /**
      * Gets the value of the <code>is-xml</code> configuration, which specifies whether any JSP pages mapped to the JSP
@@ -84,7 +84,7 @@ public interface JspPropertyGroupDescriptor {
      * Any changes to the returned <code>Collection</code> must not affect this <code>JspPropertyGroupDescriptor</code>.
      *
      * @return a (possibly empty) <code>Collection</code> of the <code>include-prelude</code> configuration of the JSP
-     *         property group represented by this <code>JspPropertyGroupDescriptor</code>
+     * property group represented by this <code>JspPropertyGroupDescriptor</code>
      */
     public Collection<String> getIncludePreludes();
 
@@ -96,7 +96,7 @@ public interface JspPropertyGroupDescriptor {
      * Any changes to the returned <code>Collection</code> must not affect this <code>JspPropertyGroupDescriptor</code>.
      *
      * @return a (possibly empty) <code>Collection</code> of the <code>include-coda</code> configuration of the JSP
-     *         property group represented by this <code>JspPropertyGroupDescriptor</code>
+     * property group represented by this <code>JspPropertyGroupDescriptor</code>
      */
     public Collection<String> getIncludeCodas();
 

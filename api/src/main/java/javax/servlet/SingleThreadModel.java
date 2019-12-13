@@ -34,9 +34,7 @@ package javax.servlet;
  * instead of implementing this interface, such as avoiding the usage of an instance variable or synchronizing the block
  * of the code accessing those resources. This interface is deprecated in Servlet API version 2.4.
  *
- *
  * @author Various
- *
  * @deprecated As of Java Servlet API 2.4, with no direct replacement.
  */
 @Deprecated

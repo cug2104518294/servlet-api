@@ -31,7 +31,6 @@ import java.util.Map;
  * through to the wrapped request object.
  *
  * @see javax.servlet.ServletRequest
- *
  * @since Servlet 2.3
  */
 public class ServletRequestWrapper implements ServletRequest {
@@ -42,7 +41,6 @@ public class ServletRequestWrapper implements ServletRequest {
      * Creates a ServletRequest adaptor wrapping the given request object.
      *
      * @param request the {@link ServletRequest} to be wrapped
-     *
      * @throws java.lang.IllegalArgumentException if the request is null
      */
     public ServletRequestWrapper(ServletRequest request) {
@@ -65,9 +63,7 @@ public class ServletRequestWrapper implements ServletRequest {
      * Sets the request object being wrapped.
      *
      * @param request the {@link ServletRequest} to be installed
-     *
      * @throws java.lang.IllegalArgumentException if the request is null.
-     * 
      */
     public void setRequest(ServletRequest request) {
         if (request == null) {
@@ -334,7 +330,6 @@ public class ServletRequestWrapper implements ServletRequest {
      * Gets the servlet context to which the wrapped servlet request was last dispatched.
      *
      * @return the servlet context to which the wrapped servlet request was last dispatched
-     *
      * @since Servlet 3.0
      */
     @Override
@@ -346,16 +341,13 @@ public class ServletRequestWrapper implements ServletRequest {
      * The default behavior of this method is to invoke {@link ServletRequest#startAsync} on the wrapped request object.
      *
      * @return the (re)initialized AsyncContext
-     * 
      * @throws IllegalStateException if the request is within the scope of a filter or servlet that does not support
      *                               asynchronous operations (that is, {@link #isAsyncSupported} returns false), or if
      *                               this method is called again without any asynchronous dispatch (resulting from one
      *                               of the {@link AsyncContext#dispatch} methods), is called outside the scope of any
      *                               such dispatch, or is called again within the scope of the same dispatch, or if the
      *                               response has already been closed
-     *
      * @see ServletRequest#startAsync
-     *
      * @since Servlet 3.0
      */
     @Override
@@ -369,18 +361,14 @@ public class ServletRequestWrapper implements ServletRequest {
      *
      * @param servletRequest  the ServletRequest used to initialize the AsyncContext
      * @param servletResponse the ServletResponse used to initialize the AsyncContext
-     *
      * @return the (re)initialized AsyncContext
-     *
      * @throws IllegalStateException if the request is within the scope of a filter or servlet that does not support
      *                               asynchronous operations (that is, {@link #isAsyncSupported} returns false), or if
      *                               this method is called again without any asynchronous dispatch (resulting from one
      *                               of the {@link AsyncContext#dispatch} methods), is called outside the scope of any
      *                               such dispatch, or is called again within the scope of the same dispatch, or if the
      *                               response has already been closed
-     *
      * @see ServletRequest#startAsync(ServletRequest, ServletResponse)
-     *
      * @since Servlet 3.0
      */
     @Override
@@ -393,9 +381,7 @@ public class ServletRequestWrapper implements ServletRequest {
      * Checks if the wrapped request has been put into asynchronous mode.
      *
      * @return true if this request has been put into asynchronous mode, false otherwise
-     *
      * @see ServletRequest#isAsyncStarted
-     *
      * @since Servlet 3.0
      */
     @Override
@@ -407,9 +393,7 @@ public class ServletRequestWrapper implements ServletRequest {
      * Checks if the wrapped request supports asynchronous operation.
      *
      * @return true if this request supports asynchronous operation, false otherwise
-     *
      * @see ServletRequest#isAsyncSupported
-     *
      * @since Servlet 3.0
      */
     @Override
@@ -419,17 +403,14 @@ public class ServletRequestWrapper implements ServletRequest {
 
     /**
      * Gets the AsyncContext that was created or reinitialized by the most recent invocation of {@link #startAsync} or
-     * {@link #startAsync(ServletRequest,ServletResponse)} on the wrapped request.
+     * {@link #startAsync(ServletRequest, ServletResponse)} on the wrapped request.
      *
      * @return the AsyncContext that was created or reinitialized by the most recent invocation of {@link #startAsync}
-     *         or {@link #startAsync(ServletRequest,ServletResponse)} on the wrapped request
-     *
+     * or {@link #startAsync(ServletRequest, ServletResponse)} on the wrapped request
      * @throws IllegalStateException if this request has not been put into asynchronous mode, i.e., if neither
-     *                               {@link #startAsync} nor {@link #startAsync(ServletRequest,ServletResponse)} has
+     *                               {@link #startAsync} nor {@link #startAsync(ServletRequest, ServletResponse)} has
      *                               been called
-     *
      * @see ServletRequest#getAsyncContext
-     *
      * @since Servlet 3.0
      */
     @Override
@@ -441,9 +422,7 @@ public class ServletRequestWrapper implements ServletRequest {
      * Checks (recursively) if this ServletRequestWrapper wraps the given {@link ServletRequest} instance.
      *
      * @param wrapped the ServletRequest instance to search for
-     *
      * @return true if this ServletRequestWrapper wraps the given ServletRequest instance, false otherwise
-     *
      * @since Servlet 3.0
      */
     public boolean isWrapperFor(ServletRequest wrapped) {
@@ -460,11 +439,8 @@ public class ServletRequestWrapper implements ServletRequest {
      * Checks (recursively) if this ServletRequestWrapper wraps a {@link ServletRequest} of the given class type.
      *
      * @param wrappedType the ServletRequest class type to search for
-     *
      * @return true if this ServletRequestWrapper wraps a ServletRequest of the given class type, false otherwise
-     *
      * @throws IllegalArgumentException if the given class does not implement {@link ServletRequest}
-     *
      * @since Servlet 3.0
      */
     public boolean isWrapperFor(Class<?> wrappedType) {
@@ -485,9 +461,7 @@ public class ServletRequestWrapper implements ServletRequest {
      * Gets the dispatcher type of the wrapped request.
      *
      * @return the dispatcher type of the wrapped request
-     * 
      * @see ServletRequest#getDispatcherType
-     *
      * @since Servlet 3.0
      */
     @Override

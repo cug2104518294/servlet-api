@@ -1,20 +1,3 @@
-/*
- * Copyright (c) 2017, 2018 Oracle and/or its affiliates and others.
- * All rights reserved.
- *
- * This program and the accompanying materials are made available under the
- * terms of the Eclipse Public License v. 2.0, which is available at
- * http://www.eclipse.org/legal/epl-2.0.
- *
- * This Source Code may also be made available under the following Secondary
- * Licenses when the conditions for such availability set forth in the
- * Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
- * version 2 with the GNU Classpath Exception, which is available at
- * https://www.gnu.org/software/classpath/license.html.
- *
- * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
- */
-
 package javax.servlet;
 
 import java.util.Set;
@@ -27,7 +10,7 @@ import java.util.Set;
  * Implementations of this interface may be annotated with {@link javax.servlet.annotation.HandlesTypes HandlesTypes},
  * in order to receive (at their {@link #onStartup} method) the Set of application classes that implement, extend, or
  * have been annotated with the class types specified by the annotation.
- * 
+ *
  * <p>
  * If an implementation of this interface does not use <tt>HandlesTypes</tt> annotation, or none of the application
  * classes match the ones specified by the annotation, the container must pass a <tt>null</tt> Set of classes to
@@ -49,7 +32,6 @@ import java.util.Set;
  * follow the application's classloading delegation model.
  *
  * @see javax.servlet.annotation.HandlesTypes
- *
  * @since Servlet 3.0
  */
 public interface ServletContainerInitializer {
@@ -69,11 +51,9 @@ public interface ServletContainerInitializer {
      *            specified by the {@link javax.servlet.annotation.HandlesTypes HandlesTypes} annotation, or
      *            <tt>null</tt> if there are no matches, or this <tt>ServletContainerInitializer</tt> has not been
      *            annotated with <tt>HandlesTypes</tt>
-     *
      * @param ctx the <tt>ServletContext</tt> of the web application that is being started and in which the classes
      *            contained in <tt>c</tt> were found
-     *
      * @throws ServletException if an error has occurred
      */
-    public void onStartup(Set<Class<?>> c, ServletContext ctx) throws ServletException;
+    void onStartup(Set<Class<?>> c, ServletContext ctx) throws ServletException;
 }

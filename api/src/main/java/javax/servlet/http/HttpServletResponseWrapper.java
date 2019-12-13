@@ -1,39 +1,19 @@
-/*
- * Copyright (c) 1997-2018 Oracle and/or its affiliates and others.
- * All rights reserved.
- * Copyright 2004 The Apache Software Foundation
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package javax.servlet.http;
 
+import javax.servlet.ServletResponseWrapper;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 import java.util.function.Supplier;
-import javax.servlet.ServletResponseWrapper;
 
 /**
- * 
  * Provides a convenient implementation of the HttpServletResponse interface that can be subclassed by developers
  * wishing to adapt the response from a Servlet. This class implements the Wrapper or Decorator pattern. Methods default
  * to calling through to the wrapped response object.
- * 
- * @author Various
- * @since Servlet 2.3
  *
+ * @author Various
  * @see javax.servlet.http.HttpServletResponse
+ * @since Servlet 2.3
  */
 public class HttpServletResponseWrapper extends ServletResponseWrapper implements HttpServletResponse {
 
@@ -41,7 +21,6 @@ public class HttpServletResponseWrapper extends ServletResponseWrapper implement
      * Constructs a response adaptor wrapping the given response.
      *
      * @param response the {@link HttpServletResponse} to be wrapped.
-     *
      * @throws java.lang.IllegalArgumentException if the response is null
      */
     public HttpServletResponseWrapper(HttpServletResponse response) {
@@ -185,18 +164,10 @@ public class HttpServletResponseWrapper extends ServletResponseWrapper implement
     }
 
     /**
-     * The default behavior of this method is to call setStatus(int sc) on the wrapped response object.
-     */
-    @Override
-    public void setStatus(int sc) {
-        this._getHttpServletResponse().setStatus(sc);
-    }
-
-    /**
      * The default behavior of this method is to call setStatus(int sc, String sm) on the wrapped response object.
      *
      * @deprecated As of version 2.1, due to ambiguous meaning of the message parameter. To set a status code use
-     *             {@link #setStatus(int)}, to send an error with a description use {@link #sendError(int, String)}
+     * {@link #setStatus(int)}, to send an error with a description use {@link #sendError(int, String)}
      */
     @Deprecated
     @Override
@@ -216,14 +187,20 @@ public class HttpServletResponseWrapper extends ServletResponseWrapper implement
     }
 
     /**
+     * The default behavior of this method is to call setStatus(int sc) on the wrapped response object.
+     */
+    @Override
+    public void setStatus(int sc) {
+        this._getHttpServletResponse().setStatus(sc);
+    }
+
+    /**
      * The default behaviour of this method is to call {@link HttpServletResponse#getHeader} on the wrapped response
      * object.
      *
      * @param name the name of the response header whose value to return
-     *
      * @return the value of the response header with the given name, or <tt>null</tt> if no header with the given name
-     *         has been set on the wrapped response
-     *
+     * has been set on the wrapped response
      * @since Servlet 3.0
      */
     @Override
@@ -239,9 +216,7 @@ public class HttpServletResponseWrapper extends ServletResponseWrapper implement
      * Any changes to the returned <code>Collection</code> must not affect this <code>HttpServletResponseWrapper</code>.
      *
      * @param name the name of the response header whose values to return
-     *
      * @return a (possibly empty) <code>Collection</code> of the values of the response header with the given name
-     *
      * @since Servlet 3.0
      */
     @Override
@@ -257,7 +232,6 @@ public class HttpServletResponseWrapper extends ServletResponseWrapper implement
      * Any changes to the returned <code>Collection</code> must not affect this <code>HttpServletResponseWrapper</code>.
      *
      * @return a (possibly empty) <code>Collection</code> of the names of the response headers
-     *
      * @since Servlet 3.0
      */
     @Override
@@ -266,28 +240,26 @@ public class HttpServletResponseWrapper extends ServletResponseWrapper implement
     }
 
     /**
-     * The default behaviour of this method is to call {@link HttpServletResponse#setTrailerFields} on the wrapped
-     * response object.
-     *
-     * @param supplier of trailer headers
-     *
-     * @since Servlet 4.0
-     */
-    @Override
-    public void setTrailerFields(Supplier<Map<String, String>> supplier) {
-        _getHttpServletResponse().setTrailerFields(supplier);
-    }
-
-    /**
      * The default behaviour of this method is to call {@link HttpServletResponse#getTrailerFields} on the wrapped
      * response object.
      *
      * @return supplier of trailer headers
-     *
      * @since Servlet 4.0
      */
     @Override
     public Supplier<Map<String, String>> getTrailerFields() {
         return _getHttpServletResponse().getTrailerFields();
+    }
+
+    /**
+     * The default behaviour of this method is to call {@link HttpServletResponse#setTrailerFields} on the wrapped
+     * response object.
+     *
+     * @param supplier of trailer headers
+     * @since Servlet 4.0
+     */
+    @Override
+    public void setTrailerFields(Supplier<Map<String, String>> supplier) {
+        _getHttpServletResponse().setTrailerFields(supplier);
     }
 }

@@ -1,21 +1,3 @@
-/*
- * Copyright (c) 1997-2018 Oracle and/or its affiliates and others.
- * All rights reserved.
- * Copyright 2004 The Apache Software Foundation
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package javax.servlet.http;
 
 import java.io.Serializable;
@@ -24,11 +6,10 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
- *
  * Creates a cookie, a small amount of information sent by a servlet to a Web browser, saved by the browser, and later
  * sent back to the server. A cookie's value can uniquely identify a client, so cookies are commonly used for session
  * management.
- * 
+ *
  * <p>
  * A cookie has a name, a single value, and optional attributes such as a comment, path and domain qualifiers, a maximum
  * age, and a version number. Some Web browsers have bugs in how they handle the optional attributes, so use them
@@ -38,12 +19,12 @@ import java.util.ResourceBundle;
  * The servlet sends cookies to the browser by using the {@link HttpServletResponse#addCookie} method, which adds fields
  * to HTTP response headers to send cookies to the browser, one at a time. The browser is expected to support 20 cookies
  * for each Web server, 300 cookies total, and may limit cookie size to 4 KB each.
- * 
+ *
  * <p>
  * The browser returns cookies to the servlet by adding fields to HTTP request headers. Cookies can be retrieved from a
  * request by using the {@link HttpServletRequest#getCookies} method. Several cookies might have the same name but
  * different path attributes.
- * 
+ *
  * <p>
  * Cookies affect the caching of the Web pages that use them. HTTP 1.0 does not cache pages that use cookies created
  * with this class. This class does not support the cache control defined with HTTP 1.1.
@@ -62,6 +43,8 @@ public class Cookie implements Cloneable, Serializable {
 
     private static final String LSTRING_FILE = "javax.servlet.http.LocalStrings";
 
+    //https://blog.csdn.net/u012345283/article/details/42082253
+    //国际化和本地化
     private static ResourceBundle lStrings = ResourceBundle.getBundle(LSTRING_FILE);
 
     static {
@@ -73,24 +56,14 @@ public class Cookie implements Cloneable, Serializable {
         }
     }
 
-    //
-    // The value of the cookie itself.
-    //
-
-    private String name; // NAME= ... "$Name" style is reserved
-    private String value; // value of NAME
-
-    //
-    // Attributes encoded in the header's cookie fields.
-    //
-
-    private String comment; // ;Comment=VALUE ... describes cookie's use
-    // ;Discard ... implied by maxAge < 0
-    private String domain; // ;Domain=VALUE ... domain that sees cookie
-    private int maxAge = -1; // ;Max-Age=VALUE ... cookies auto-expire
-    private String path; // ;Path=VALUE ... URLs that see the cookie
-    private boolean secure; // ;Secure ... e.g. use SSL
-    private int version = 0; // ;Version=1 ... means RFC 2109++ style
+    private String name;
+    private String value;
+    private String comment;
+    private String domain;
+    private int maxAge = -1;
+    private String path;
+    private boolean secure;
+    private int version = 0;
     private boolean isHttpOnly = false;
 
     /**
@@ -112,13 +85,10 @@ public class Cookie implements Cloneable, Serializable {
      * the <code>setVersion</code> method.
      *
      * @param name  the name of the cookie
-     *
      * @param value the value of the cookie
-     *
      * @throws IllegalArgumentException if the cookie name is null or empty or contains any illegal characters (for
      *                                  example, a comma, space, or semicolon) or matches a token reserved for use by
      *                                  the cookie protocol
-     *
      * @see #setValue
      * @see #setVersion
      */
@@ -144,22 +114,9 @@ public class Cookie implements Cloneable, Serializable {
     }
 
     /**
-     * Specifies a comment that describes a cookie's purpose. The comment is useful if the browser presents the cookie
-     * to the user. Comments are not supported by Netscape Version 0 cookies.
-     *
-     * @param purpose a <code>String</code> specifying the comment to display to the user
-     *
-     * @see #getComment
-     */
-    public void setComment(String purpose) {
-        comment = purpose;
-    }
-
-    /**
      * Returns the comment describing the purpose of this cookie, or <code>null</code> if the cookie has no comment.
      *
      * @return the comment of the cookie, or <code>null</code> if unspecified
-     *
      * @see #setComment
      */
     public String getComment() {
@@ -167,21 +124,14 @@ public class Cookie implements Cloneable, Serializable {
     }
 
     /**
+     * Specifies a comment that describes a cookie's purpose. The comment is useful if the browser presents the cookie
+     * to the user. Comments are not supported by Netscape Version 0 cookies.
      *
-     * Specifies the domain within which this cookie should be presented.
-     *
-     * <p>
-     * The form of the domain name is specified by RFC 2109. A domain name begins with a dot (<code>.foo.com</code>) and
-     * means that the cookie is visible to servers in a specified Domain Name System (DNS) zone (for example,
-     * <code>www.foo.com</code>, but not <code>a.b.foo.com</code>). By default, cookies are only returned to the server
-     * that sent them.
-     *
-     * @param domain the domain name within which this cookie is visible; form is according to RFC 2109
-     *
-     * @see #getDomain
+     * @param purpose a <code>String</code> specifying the comment to display to the user
+     * @see #getComment
      */
-    public void setDomain(String domain) {
-        this.domain = domain.toLowerCase(Locale.ENGLISH); // IE allegedly needs this
+    public void setComment(String purpose) {
+        comment = purpose;
     }
 
     /**
@@ -191,11 +141,40 @@ public class Cookie implements Cloneable, Serializable {
      * Domain names are formatted according to RFC 2109.
      *
      * @return the domain name of this Cookie
-     *
      * @see #setDomain
      */
     public String getDomain() {
         return domain;
+    }
+
+    /**
+     * Specifies the domain within which this cookie should be presented.
+     *
+     * <p>
+     * The form of the domain name is specified by RFC 2109. A domain name begins with a dot (<code>.foo.com</code>) and
+     * means that the cookie is visible to servers in a specified Domain Name System (DNS) zone (for example,
+     * <code>www.foo.com</code>, but not <code>a.b.foo.com</code>). By default, cookies are only returned to the server
+     * that sent them.
+     *
+     * @param domain the domain name within which this cookie is visible; form is according to RFC 2109
+     * @see #getDomain
+     */
+    public void setDomain(String domain) {
+        this.domain = domain.toLowerCase(Locale.ENGLISH); // IE allegedly needs this
+    }
+
+    /**
+     * Gets the maximum age in seconds of this Cookie.
+     *
+     * <p>
+     * By default, <code>-1</code> is returned, which indicates that the cookie will persist until browser shutdown.
+     *
+     * @return an integer specifying the maximum age of the cookie in seconds; if negative, means the cookie persists
+     * until browser shutdown
+     * @see #setMaxAge
+     */
+    public int getMaxAge() {
+        return maxAge;
     }
 
     /**
@@ -211,7 +190,6 @@ public class Cookie implements Cloneable, Serializable {
      *
      * @param expiry an integer specifying the maximum age of the cookie in seconds; if negative, means the cookie is
      *               not stored; if zero, deletes the cookie
-     *
      * @see #getMaxAge
      */
     public void setMaxAge(int expiry) {
@@ -219,18 +197,14 @@ public class Cookie implements Cloneable, Serializable {
     }
 
     /**
-     * Gets the maximum age in seconds of this Cookie.
+     * Returns the path on the server to which the browser returns this cookie. The cookie is visible to all subpaths on
+     * the server.
      *
-     * <p>
-     * By default, <code>-1</code> is returned, which indicates that the cookie will persist until browser shutdown.
-     *
-     * @return an integer specifying the maximum age of the cookie in seconds; if negative, means the cookie persists
-     *         until browser shutdown
-     *
-     * @see #setMaxAge
+     * @return a <code>String</code> specifying a path that contains a servlet name, for example, <i>/catalog</i>
+     * @see #setPath
      */
-    public int getMaxAge() {
-        return maxAge;
+    public String getPath() {
+        return path;
     }
 
     /**
@@ -244,9 +218,7 @@ public class Cookie implements Cloneable, Serializable {
      * <p>
      * Consult RFC 2109 (available on the Internet) for more information on setting path names for cookies.
      *
-     *
      * @param uri a <code>String</code> specifying a path
-     *
      * @see #getPath
      */
     public void setPath(String uri) {
@@ -254,15 +226,14 @@ public class Cookie implements Cloneable, Serializable {
     }
 
     /**
-     * Returns the path on the server to which the browser returns this cookie. The cookie is visible to all subpaths on
-     * the server.
+     * Returns <code>true</code> if the browser is sending cookies only over a secure protocol, or <code>false</code> if
+     * the browser can send cookies using any protocol.
      *
-     * @return a <code>String</code> specifying a path that contains a servlet name, for example, <i>/catalog</i>
-     *
-     * @see #setPath
+     * @return <code>true</code> if the browser uses a secure protocol, <code>false</code> otherwise
+     * @see #setSecure
      */
-    public String getPath() {
-        return path;
+    public boolean getSecure() {
+        return secure;
     }
 
     /**
@@ -273,23 +244,10 @@ public class Cookie implements Cloneable, Serializable {
      *
      * @param flag if <code>true</code>, sends the cookie from the browser to the server only when using a secure
      *             protocol; if <code>false</code>, sent on any protocol
-     *
      * @see #getSecure
      */
     public void setSecure(boolean flag) {
         secure = flag;
-    }
-
-    /**
-     * Returns <code>true</code> if the browser is sending cookies only over a secure protocol, or <code>false</code> if
-     * the browser can send cookies using any protocol.
-     *
-     * @return <code>true</code> if the browser uses a secure protocol, <code>false</code> otherwise
-     *
-     * @see #setSecure
-     */
-    public boolean getSecure() {
-        return secure;
     }
 
     /**
@@ -302,8 +260,18 @@ public class Cookie implements Cloneable, Serializable {
     }
 
     /**
+     * Gets the current value of this Cookie.
+     *
+     * @return the current value of this Cookie
+     * @see #setValue
+     */
+    public String getValue() {
+        return value;
+    }
+
+    /**
      * Assigns a new value to this Cookie.
-     * 
+     *
      * <p>
      * If you use a binary value, you may want to use BASE64 encoding.
      *
@@ -313,7 +281,6 @@ public class Cookie implements Cloneable, Serializable {
      * way on all browsers.
      *
      * @param newValue the new value of the cookie
-     *
      * @see #getValue
      */
     public void setValue(String newValue) {
@@ -321,23 +288,11 @@ public class Cookie implements Cloneable, Serializable {
     }
 
     /**
-     * Gets the current value of this Cookie.
-     *
-     * @return the current value of this Cookie
-     *
-     * @see #setValue
-     */
-    public String getValue() {
-        return value;
-    }
-
-    /**
      * Returns the version of the protocol this cookie complies with. Version 1 complies with RFC 2109, and version 0
      * complies with the original cookie specification drafted by Netscape. Cookies provided by a browser use and
      * identify the browser's cookie version.
-     * 
-     * @return 0 if the cookie complies with the original Netscape specification; 1 if the cookie complies with RFC 2109
      *
+     * @return 0 if the cookie complies with the original Netscape specification; 1 if the cookie complies with RFC 2109
      * @see #setVersion
      */
     public int getVersion() {
@@ -355,7 +310,6 @@ public class Cookie implements Cloneable, Serializable {
      *
      * @param v 0 if the cookie should comply with the original Netscape specification; 1 if the cookie should comply
      *          with RFC 2109
-     *
      * @see #getVersion
      */
     public void setVersion(int v) {
@@ -364,7 +318,7 @@ public class Cookie implements Cloneable, Serializable {
 
     /*
      * Tests a string and returns true if the string counts as a reserved token in the Java language.
-     * 
+     *
      * @param value the <code>String</code> to be tested
      *
      * @return <code>true</code> if the <code>String</code> is a reserved token; <code>false</code> otherwise
@@ -394,6 +348,16 @@ public class Cookie implements Cloneable, Serializable {
     }
 
     /**
+     * Checks whether this Cookie has been marked as <i>HttpOnly</i>.
+     *
+     * @return true if this Cookie has been marked as <i>HttpOnly</i>, false otherwise
+     * @since Servlet 3.0
+     */
+    public boolean isHttpOnly() {
+        return isHttpOnly;
+    }
+
+    /**
      * Marks or unmarks this Cookie as <i>HttpOnly</i>.
      *
      * <p>
@@ -405,21 +369,9 @@ public class Cookie implements Cloneable, Serializable {
      * mitigate certain kinds of cross-site scripting attacks.
      *
      * @param isHttpOnly true if this cookie is to be marked as <i>HttpOnly</i>, false otherwise
-     *
      * @since Servlet 3.0
      */
     public void setHttpOnly(boolean isHttpOnly) {
         this.isHttpOnly = isHttpOnly;
-    }
-
-    /**
-     * Checks whether this Cookie has been marked as <i>HttpOnly</i>.
-     *
-     * @return true if this Cookie has been marked as <i>HttpOnly</i>, false otherwise
-     *
-     * @since Servlet 3.0
-     */
-    public boolean isHttpOnly() {
-        return isHttpOnly;
     }
 }

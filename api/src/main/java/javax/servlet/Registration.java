@@ -1,20 +1,3 @@
-/*
- * Copyright (c) 2017, 2018 Oracle and/or its affiliates and others.
- * All rights reserved.
- *
- * This program and the accompanying materials are made available under the
- * terms of the Eclipse Public License v. 2.0, which is available at
- * http://www.eclipse.org/legal/epl-2.0.
- *
- * This Source Code may also be made available under the following Secondary
- * Licenses when the conditions for such availability set forth in the
- * Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
- * version 2 with the GNU Classpath Exception, which is available at
- * https://www.gnu.org/software/classpath/license.html.
- *
- * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
- */
-
 package javax.servlet;
 
 import java.util.Map;
@@ -42,15 +25,15 @@ public interface Registration {
      *
      * @return the name of the Servlet or Filter that is represented by this Registration
      */
-    public String getName();
+    String getName();
 
     /**
      * Gets the fully qualified class name of the Servlet or Filter that is represented by this Registration.
      *
      * @return the fully qualified class name of the Servlet or Filter that is represented by this Registration, or null
-     *         if this Registration is preliminary
+     * if this Registration is preliminary
      */
-    public String getClassName();
+    String getClassName();
 
     /**
      * Sets the initialization parameter with the given name and value on the Servlet or Filter that is represented by
@@ -58,33 +41,30 @@ public interface Registration {
      *
      * @param name  the initialization parameter name
      * @param value the initialization parameter value
-     *
      * @return true if the update was successful, i.e., an initialization parameter with the given name did not already
-     *         exist for the Servlet or Filter represented by this Registration, and false otherwise
-     *
+     * exist for the Servlet or Filter represented by this Registration, and false otherwise
      * @throws IllegalStateException    if the ServletContext from which this Registration was obtained has already been
      *                                  initialized
      * @throws IllegalArgumentException if the given name or value is <tt>null</tt>
      */
-    public boolean setInitParameter(String name, String value);
+    boolean setInitParameter(String name, String value);
 
     /**
      * Gets the value of the initialization parameter with the given name that will be used to initialize the Servlet or
      * Filter represented by this Registration object.
      *
      * @param name the name of the initialization parameter whose value is requested
-     *
      * @return the value of the initialization parameter with the given name, or <tt>null</tt> if no initialization
-     *         parameter with the given name exists
+     * parameter with the given name exists
      */
-    public String getInitParameter(String name);
+    String getInitParameter(String name);
 
     /**
      * Sets the given initialization parameters on the Servlet or Filter that is represented by this Registration.
      *
      * <p>
      * The given map of initialization parameters is processed <i>by-value</i>, i.e., for each initialization parameter
-     * contained in the map, this method calls {@link #setInitParameter(String,String)}. If that method would return
+     * contained in the map, this method calls {@link #setInitParameter(String, String)}. If that method would return
      * false for any of the initialization parameters in the given map, no updates will be performed, and false will be
      * returned. Likewise, if the map contains an initialization parameter with a <tt>null</tt> name or value, no
      * updates will be performed, and an IllegalArgumentException will be thrown.
@@ -95,22 +75,20 @@ public interface Registration {
      * </p>
      *
      * @param initParameters the initialization parameters
-     *
      * @return the (possibly empty) Set of initialization parameter names that are in conflict
-     *
      * @throws IllegalStateException    if the ServletContext from which this Registration was obtained has already been
      *                                  initialized
      * @throws IllegalArgumentException if the given map contains an initialization parameter with a <tt>null</tt> name
      *                                  or value
      */
-    public Set<String> setInitParameters(Map<String, String> initParameters);
+    Set<String> setInitParameters(Map<String, String> initParameters);
 
     /**
      * Gets an immutable (and possibly empty) Map containing the currently available initialization parameters that will
      * be used to initialize the Servlet or Filter represented by this Registration object.
      *
      * @return Map containing the currently available initialization parameters that will be used to initialize the
-     *         Servlet or Filter represented by this Registration object
+     * Servlet or Filter represented by this Registration object
      */
     public Map<String, String> getInitParameters();
 
@@ -132,10 +110,9 @@ public interface Registration {
          *
          * @param isAsyncSupported true if the Servlet or Filter represented by this dynamic Registration supports
          *                         asynchronous operations, false otherwise
-         *
          * @throws IllegalStateException if the ServletContext from which this dynamic Registration was obtained has
          *                               already been initialized
          */
-        public void setAsyncSupported(boolean isAsyncSupported);
+        void setAsyncSupported(boolean isAsyncSupported);
     }
 }

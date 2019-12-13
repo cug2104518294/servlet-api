@@ -1,23 +1,6 @@
-/*
- * Copyright (c) 1997-2018 Oracle and/or its affiliates and others.
- * All rights reserved.
- * Copyright 2004 The Apache Software Foundation
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package javax.servlet;
 
+import javax.servlet.descriptor.JspConfigDescriptor;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -25,7 +8,6 @@ import java.util.Enumeration;
 import java.util.EventListener;
 import java.util.Map;
 import java.util.Set;
-import javax.servlet.descriptor.JspConfigDescriptor;
 
 /**
  * Defines a set of methods that a servlet uses to communicate with its servlet container, for example, to get the MIME
@@ -46,7 +28,6 @@ import javax.servlet.descriptor.JspConfigDescriptor;
  * provides the servlet when the servlet is initialized.
  *
  * @author Various
- *
  * @see Servlet#getServletConfig
  * @see ServletConfig#getServletContext
  */
@@ -83,12 +64,10 @@ public interface ServletContext {
      * be considered as the prime or preferred context path of the application.
      *
      * @return The context path of the web application, or "" for the root context
-     *
      * @see javax.servlet.http.HttpServletRequest#getContextPath()
-     *
      * @since Servlet 2.5
      */
-    public String getContextPath();
+    String getContextPath();
 
     /**
      * Returns a <code>ServletContext</code> object that corresponds to a specified URL on the server.
@@ -104,11 +83,10 @@ public interface ServletContext {
      *
      * @param uripath a <code>String</code> specifying the context path of another web application in the container.
      * @return the <code>ServletContext</code> object that corresponds to the named URL, or null if either none exists
-     *         or the container wishes to restrict this access.
-     *
+     * or the container wishes to restrict this access.
      * @see RequestDispatcher
      */
-    public ServletContext getContext(String uripath);
+    ServletContext getContext(String uripath);
 
     /**
      * Returns the major version of Jakarta Servlet that this container supports. All implementations that
@@ -116,7 +94,7 @@ public interface ServletContext {
      *
      * @return 4
      */
-    public int getMajorVersion();
+    int getMajorVersion();
 
     /**
      * Returns the minor version of Jakarta Servlet that this container supports. All implementations that
@@ -124,7 +102,7 @@ public interface ServletContext {
      *
      * @return 0
      */
-    public int getMinorVersion();
+    int getMinorVersion();
 
     /**
      * Gets the major version of the Servlet specification that the application represented by this ServletContext is
@@ -135,17 +113,15 @@ public interface ServletContext {
      * specification supported by the Servlet container.
      *
      * @return the major version of the Servlet specification that the application represented by this ServletContext is
-     *         based on
-     *
+     * based on
      * @throws UnsupportedOperationException if this ServletContext was passed to the
      *                                       {@link ServletContextListener#contextInitialized} method of a
      *                                       {@link ServletContextListener} that was neither declared in
      *                                       <code>web.xml</code> or <code>web-fragment.xml</code>, nor annotated with
      *                                       {@link javax.servlet.annotation.WebListener}
-     *
      * @since Servlet 3.0
      */
-    public int getEffectiveMajorVersion();
+    int getEffectiveMajorVersion();
 
     /**
      * Gets the minor version of the Servlet specification that the application represented by this ServletContext is
@@ -156,17 +132,15 @@ public interface ServletContext {
      * specification supported by the Servlet container.
      *
      * @return the minor version of the Servlet specification that the application represented by this ServletContext is
-     *         based on
-     *
+     * based on
      * @throws UnsupportedOperationException if this ServletContext was passed to the
      *                                       {@link ServletContextListener#contextInitialized} method of a
      *                                       {@link ServletContextListener} that was neither declared in
      *                                       <code>web.xml</code> or <code>web-fragment.xml</code>, nor annotated with
      *                                       {@link javax.servlet.annotation.WebListener}
-     *
      * @since Servlet 3.0
      */
-    public int getEffectiveMinorVersion();
+    int getEffectiveMinorVersion();
 
     /**
      * Returns the MIME type of the specified file, or <code>null</code> if the MIME type is not known. The MIME type is
@@ -174,10 +148,9 @@ public interface ServletContext {
      * descriptor. Common MIME types include <code>text/html</code> and <code>image/gif</code>.
      *
      * @param file a <code>String</code> specifying the name of a file
-     *
      * @return a <code>String</code> specifying the file's MIME type
      */
-    public String getMimeType(String file);
+    String getMimeType(String file);
 
     /**
      * Returns a directory-like listing of all the paths to resources within the web application whose longest sub-path
@@ -219,11 +192,10 @@ public interface ServletContext {
      *
      * @param path the partial path used to match the resources, which must start with a <tt>/</tt>
      * @return a Set containing the directory listing, or null if there are no resources in the web application whose
-     *         path begins with the supplied path.
-     *
+     * path begins with the supplied path.
      * @since Servlet 2.3
      */
-    public Set<String> getResourcePaths(String path);
+    Set<String> getResourcePaths(String path);
 
     /**
      * Returns a URL to the resource that is mapped to the given path.
@@ -263,12 +235,10 @@ public interface ServletContext {
      * user provided data) and when using the result not to create a security vulnerability in the application.
      *
      * @param path a <code>String</code> specifying the path to the resource
-     *
      * @return the resource located at the named path, or <code>null</code> if there is no resource at that path
-     *
-     * @exception MalformedURLException if the pathname is not given in the correct form
+     * @throws MalformedURLException if the pathname is not given in the correct form
      */
-    public URL getResource(String path) throws MalformedURLException;
+    URL getResource(String path) throws MalformedURLException;
 
     /**
      * Returns the resource located at the named path as an <code>InputStream</code> object.
@@ -296,16 +266,13 @@ public interface ServletContext {
      * application) security constraints. Care should be taken both when constructing the path (e.g. avoid unsanitized
      * user provided data) and when using the result not to create a security vulnerability in the application.
      *
-     *
      * @param path a <code>String</code> specifying the path to the resource
-     *
      * @return the <code>InputStream</code> returned to the servlet, or <code>null</code> if no resource exists at the
-     *         specified path
+     * specified path
      */
-    public InputStream getResourceAsStream(String path);
+    InputStream getResourceAsStream(String path);
 
     /**
-     *
      * Returns a {@link RequestDispatcher} object that acts as a wrapper for the resource located at the given path. A
      * <code>RequestDispatcher</code> object can be used to forward a request to the resource or to include the resource
      * in a response. The resource can be dynamic or static.
@@ -319,14 +286,12 @@ public interface ServletContext {
      * <code>RequestDispatcher</code>.
      *
      * @param path a <code>String</code> specifying the pathname to the resource
-     *
      * @return a <code>RequestDispatcher</code> object that acts as a wrapper for the resource at the specified path, or
-     *         <code>null</code> if the <code>ServletContext</code> cannot return a <code>RequestDispatcher</code>
-     *
+     * <code>null</code> if the <code>ServletContext</code> cannot return a <code>RequestDispatcher</code>
      * @see RequestDispatcher
      * @see ServletContext#getContext
      */
-    public RequestDispatcher getRequestDispatcher(String path);
+    RequestDispatcher getRequestDispatcher(String path);
 
     /**
      * Returns a {@link RequestDispatcher} object that acts as a wrapper for the named servlet.
@@ -340,10 +305,8 @@ public interface ServletContext {
      * <code>RequestDispatcher</code> for any reason.
      *
      * @param name a <code>String</code> specifying the name of a servlet to wrap
-     *
      * @return a <code>RequestDispatcher</code> object that acts as a wrapper for the named servlet, or
-     *         <code>null</code> if the <code>ServletContext</code> cannot return a <code>RequestDispatcher</code>
-     *
+     * <code>null</code> if the <code>ServletContext</code> cannot return a <code>RequestDispatcher</code>
      * @see RequestDispatcher
      * @see ServletContext#getContext
      * @see ServletConfig#getServletName
@@ -351,54 +314,50 @@ public interface ServletContext {
     public RequestDispatcher getNamedDispatcher(String name);
 
     /**
-     * @deprecated As of Java Servlet API 2.1, with no direct replacement.
-     *
-     *             <p>
-     *             This method was originally defined to retrieve a servlet from a <code>ServletContext</code>. In this
-     *             version, this method always returns <code>null</code> and remains only to preserve binary
-     *             compatibility. This method will be permanently removed in a future version of Jakarta Servlets.
-     *
-     *             <p>
-     *             In lieu of this method, servlets can share information using the <code>ServletContext</code> class
-     *             and can perform shared business logic by invoking methods on common non-servlet classes.
-     *
      * @param name the servlet name
      * @return the {@code javax.servlet.Servlet Servlet} with the given name
      * @throws ServletException if an exception has occurred that interfaces with servlet's normal operation
+     * @deprecated As of Java Servlet API 2.1, with no direct replacement.
+     *
+     * <p>
+     * This method was originally defined to retrieve a servlet from a <code>ServletContext</code>. In this
+     * version, this method always returns <code>null</code> and remains only to preserve binary
+     * compatibility. This method will be permanently removed in a future version of Jakarta Servlets.
+     *
+     * <p>
+     * In lieu of this method, servlets can share information using the <code>ServletContext</code> class
+     * and can perform shared business logic by invoking methods on common non-servlet classes.
      */
     @Deprecated
     public Servlet getServlet(String name) throws ServletException;
 
     /**
+     * @return an <code>Enumeration</code> of {@code javax.servlet.Servlet Servlet}
      * @deprecated As of Java Servlet API 2.0, with no replacement.
      *
-     *             <p>
-     *             This method was originally defined to return an <code>Enumeration</code> of all the servlets known to
-     *             this servlet context. In this version, this method always returns an empty enumeration and remains
-     *             only to preserve binary compatibility. This method will be permanently removed in a future version of
-     *             Jakarta Servlets.
-     *
-     * @return an <code>Enumeration</code> of {@code javax.servlet.Servlet Servlet}
+     * <p>
+     * This method was originally defined to return an <code>Enumeration</code> of all the servlets known to
+     * this servlet context. In this version, this method always returns an empty enumeration and remains
+     * only to preserve binary compatibility. This method will be permanently removed in a future version of
+     * Jakarta Servlets.
      */
     @Deprecated
-    public Enumeration<Servlet> getServlets();
+    Enumeration<Servlet> getServlets();
 
     /**
+     * @return an <code>Enumeration</code> of {@code javax.servlet.Servlet Servlet} names
      * @deprecated As of Java Servlet API 2.1, with no replacement.
      *
-     *             <p>
-     *             This method was originally defined to return an <code>Enumeration</code> of all the servlet names
-     *             known to this context. In this version, this method always returns an empty <code>Enumeration</code>
-     *             and remains only to preserve binary compatibility. This method will be permanently removed in a
-     *             future version of Jakarta Servlets.
-     *
-     * @return an <code>Enumeration</code> of {@code javax.servlet.Servlet Servlet} names
+     * <p>
+     * This method was originally defined to return an <code>Enumeration</code> of all the servlet names
+     * known to this context. In this version, this method always returns an empty <code>Enumeration</code>
+     * and remains only to preserve binary compatibility. This method will be permanently removed in a
+     * future version of Jakarta Servlets.
      */
     @Deprecated
     public Enumeration<String> getServletNames();
 
     /**
-     *
      * Writes the specified message to a servlet log file, usually an event log. The name and type of the servlet log
      * file is specific to the servlet container.
      *
@@ -407,14 +366,13 @@ public interface ServletContext {
     public void log(String msg);
 
     /**
-     * @deprecated As of Java Servlet API 2.1, use {@link #log(String message, Throwable throwable)} instead.
-     *
-     *             <p>
-     *             This method was originally defined to write an exception's stack trace and an explanatory error
-     *             message to the servlet log file.
-     *
      * @param exception the <code>Exception</code> error
      * @param msg       a <code>String</code> that describes the exception
+     * @deprecated As of Java Servlet API 2.1, use {@link #log(String message, Throwable throwable)} instead.
+     *
+     * <p>
+     * This method was originally defined to write an exception's stack trace and an explanatory error
+     * message to the servlet log file.
      */
     @Deprecated
     public void log(Exception exception, String msg);
@@ -424,7 +382,6 @@ public interface ServletContext {
      * file. The name and type of the servlet log file is specific to the servlet container, usually an event log.
      *
      * @param message   a <code>String</code> that describes the error or exception
-     *
      * @param throwable the <code>Throwable</code> error or exception
      */
     public void log(String message, Throwable throwable);
@@ -452,7 +409,6 @@ public interface ServletContext {
      * path to a <i>real</i> path.
      *
      * @param path the <i>virtual</i> path to be translated to a <i>real</i> path
-     *
      * @return the <i>real</i> path, or <tt>null</tt> if the translation cannot be performed
      */
     public String getRealPath(String path);
@@ -468,7 +424,6 @@ public interface ServletContext {
      * The servlet container may return other optional information after the primary string in parentheses, for example,
      * <code>JavaServer Web Dev Kit/1.0 (JDK 1.1.6; Windows NT 4.0 x86)</code>.
      *
-     *
      * @return a <code>String</code> containing at least the servlet container name and version number
      */
     public String getServerInfo();
@@ -482,12 +437,9 @@ public interface ServletContext {
      * provide a webmaster's email address or the name of a system that holds critical data.
      *
      * @param name a <code>String</code> containing the name of the parameter whose value is requested
-     *
      * @return a <code>String</code> containing the value of the context's initialization parameter, or
-     *         <code>null</code> if the context's initialization parameter does not exist.
-     *
+     * <code>null</code> if the context's initialization parameter does not exist.
      * @throws NullPointerException if the argument {@code name} is {@code null}
-     *
      * @see ServletConfig#getInitParameter
      */
     public String getInitParameter(String name);
@@ -498,8 +450,7 @@ public interface ServletContext {
      * parameters.
      *
      * @return an <code>Enumeration</code> of <code>String</code> objects containing the names of the context's
-     *         initialization parameters
-     *
+     * initialization parameters
      * @see ServletConfig#getInitParameter
      */
     public Enumeration<String> getInitParameterNames();
@@ -509,21 +460,16 @@ public interface ServletContext {
      *
      * @param name  the name of the context initialization parameter to set
      * @param value the value of the context initialization parameter to set
-     *
      * @return true if the context initialization parameter with the given name and value was set successfully on this
-     *         ServletContext, and false if it was not set because this ServletContext already contains a context
-     *         initialization parameter with a matching name
-     *
+     * ServletContext, and false if it was not set because this ServletContext already contains a context
+     * initialization parameter with a matching name
      * @throws IllegalStateException         if this ServletContext has already been initialized
-     *
      * @throws NullPointerException          if the name parameter is {@code null}
-     *
      * @throws UnsupportedOperationException if this ServletContext was passed to the
      *                                       {@link ServletContextListener#contextInitialized} method of a
      *                                       {@link ServletContextListener} that was neither declared in
      *                                       <code>web.xml</code> or <code>web-fragment.xml</code>, nor annotated with
      *                                       {@link javax.servlet.annotation.WebListener}
-     *
      * @since Servlet 3.0
      */
     public boolean setInitParameter(String name, String value);
@@ -545,14 +491,10 @@ public interface ServletContext {
      * names matching <code>java.*</code>, <code>javax.*</code>, and <code>sun.*</code>.
      *
      * @param name a <code>String</code> specifying the name of the attribute
-     *
      * @return an <code>Object</code> containing the value of the attribute, or <code>null</code> if no attribute exists
-     *         matching the given name.
-     *
-     * @see ServletContext#getAttributeNames
-     *
+     * matching the given name.
      * @throws NullPointerException if the argument {@code name} is {@code null}
-     *
+     * @see ServletContext#getAttributeNames
      */
     public Object getAttribute(String name);
 
@@ -563,7 +505,6 @@ public interface ServletContext {
      * Use the {@link #getAttribute} method with an attribute name to get the value of an attribute.
      *
      * @return an <code>Enumeration</code> of attribute names
-     *
      * @see #getAttribute
      */
     public Enumeration<String> getAttributeNames();
@@ -581,11 +522,8 @@ public interface ServletContext {
      * names matching <code>java.*</code>, <code>javax.*</code>, and <code>sun.*</code>.
      *
      * @param name   a <code>String</code> specifying the name of the attribute
-     *
      * @param object an <code>Object</code> representing the attribute to be bound
-     *
      * @throws NullPointerException if the name parameter is {@code null}
-     *
      */
     public void setAttribute(String name, Object object);
 
@@ -605,7 +543,6 @@ public interface ServletContext {
      * descriptor for this web application by the display-name element.
      *
      * @return The name of the web application or null if no name has been declared in the deployment descriptor.
-     *
      * @since Servlet 2.3
      */
     public String getServletContextName();
@@ -634,21 +571,16 @@ public interface ServletContext {
      *
      * @param servletName the name of the servlet
      * @param className   the fully qualified class name of the servlet
-     *
      * @return a ServletRegistration object that may be used to further configure the registered servlet, or
-     *         <tt>null</tt> if this ServletContext already contains a complete ServletRegistration for a servlet with
-     *         the given <tt>servletName</tt>
-     *
+     * <tt>null</tt> if this ServletContext already contains a complete ServletRegistration for a servlet with
+     * the given <tt>servletName</tt>
      * @throws IllegalStateException         if this ServletContext has already been initialized
-     *
      * @throws IllegalArgumentException      if <code>servletName</code> is null or an empty String
-     *
      * @throws UnsupportedOperationException if this ServletContext was passed to the
      *                                       {@link ServletContextListener#contextInitialized} method of a
      *                                       {@link ServletContextListener} that was neither declared in
      *                                       <code>web.xml</code> or <code>web-fragment.xml</code>, nor annotated with
      *                                       {@link javax.servlet.annotation.WebListener}
-     *
      * @since Servlet 3.0
      */
     public ServletRegistration.Dynamic addServlet(String servletName, String className);
@@ -666,23 +598,18 @@ public interface ServletContext {
      *
      * @param servletName the name of the servlet
      * @param servlet     the servlet instance to register
-     *
      * @return a ServletRegistration object that may be used to further configure the given servlet, or <tt>null</tt> if
-     *         this ServletContext already contains a complete ServletRegistration for a servlet with the given
-     *         <tt>servletName</tt> or if the same servlet instance has already been registered with this or another
-     *         ServletContext in the same container
-     *
+     * this ServletContext already contains a complete ServletRegistration for a servlet with the given
+     * <tt>servletName</tt> or if the same servlet instance has already been registered with this or another
+     * ServletContext in the same container
      * @throws IllegalStateException         if this ServletContext has already been initialized
-     *
      * @throws UnsupportedOperationException if this ServletContext was passed to the
      *                                       {@link ServletContextListener#contextInitialized} method of a
      *                                       {@link ServletContextListener} that was neither declared in
      *                                       <code>web.xml</code> or <code>web-fragment.xml</code>, nor annotated with
      *                                       {@link javax.servlet.annotation.WebListener}
-     *
      * @throws IllegalArgumentException      if the given servlet instance implements {@link SingleThreadModel}, or
      *                                       <code>servletName</code> is null or an empty String
-     *
      * @since Servlet 3.0
      */
     public ServletRegistration.Dynamic addServlet(String servletName, Servlet servlet);
@@ -707,21 +634,16 @@ public interface ServletContext {
      *
      * @param servletName  the name of the servlet
      * @param servletClass the class object from which the servlet will be instantiated
-     *
      * @return a ServletRegistration object that may be used to further configure the registered servlet, or
-     *         <tt>null</tt> if this ServletContext already contains a complete ServletRegistration for the given
-     *         <tt>servletName</tt>
-     *
+     * <tt>null</tt> if this ServletContext already contains a complete ServletRegistration for the given
+     * <tt>servletName</tt>
      * @throws IllegalStateException         if this ServletContext has already been initialized
-     *
      * @throws IllegalArgumentException      if <code>servletName</code> is null or an empty String
-     *
      * @throws UnsupportedOperationException if this ServletContext was passed to the
      *                                       {@link ServletContextListener#contextInitialized} method of a
      *                                       {@link ServletContextListener} that was neither declared in
      *                                       <code>web.xml</code> or <code>web-fragment.xml</code>, nor annotated with
      *                                       {@link javax.servlet.annotation.WebListener}
-     *
      * @since Servlet 3.0
      */
     public ServletRegistration.Dynamic addServlet(String servletName, Class<? extends Servlet> servletClass);
@@ -738,21 +660,16 @@ public interface ServletContext {
      *
      * @param servletName the name of the servlet
      * @param jspFile     the full path to a JSP file within the web application beginning with a `/'.
-     *
      * @return a ServletRegistration object that may be used to further configure the registered servlet, or
-     *         <tt>null</tt> if this ServletContext already contains a complete ServletRegistration for a servlet with
-     *         the given <tt>servletName</tt>
-     *
+     * <tt>null</tt> if this ServletContext already contains a complete ServletRegistration for a servlet with
+     * the given <tt>servletName</tt>
      * @throws IllegalStateException         if this ServletContext has already been initialized
-     *
      * @throws IllegalArgumentException      if <code>servletName</code> is null or an empty String
-     *
      * @throws UnsupportedOperationException if this ServletContext was passed to the
      *                                       {@link ServletContextListener#contextInitialized} method of a
      *                                       {@link ServletContextListener} that was neither declared in
      *                                       <code>web.xml</code> or <code>web-fragment.xml</code>, nor annotated with
      *                                       {@link javax.servlet.annotation.WebListener}
-     *
      * @since Servlet 4.0
      */
     public ServletRegistration.Dynamic addJspFile(String servletName, String jspFile);
@@ -762,7 +679,7 @@ public interface ServletContext {
      *
      * <p>
      * The returned Servlet instance may be further customized before it is registered with this ServletContext via a
-     * call to {@link #addServlet(String,Servlet)}.
+     * call to {@link #addServlet(String, Servlet)}.
      *
      * <p>
      * The given Servlet class must define a zero argument constructor, which is used to instantiate it.
@@ -774,19 +691,15 @@ public interface ServletContext {
      * method supports resource injection if the given <tt>clazz</tt> represents a Managed Bean. See the Jakarta EE
      * platform and CDI specifications for additional details about Managed Beans and resource injection.
      *
-     * @param       <T> the class of the Servlet to create
+     * @param <T>   the class of the Servlet to create
      * @param clazz the Servlet class to instantiate
-     *
      * @return the new Servlet instance
-     *
      * @throws ServletException              if the given <tt>clazz</tt> fails to be instantiated
-     *
      * @throws UnsupportedOperationException if this ServletContext was passed to the
      *                                       {@link ServletContextListener#contextInitialized} method of a
      *                                       {@link ServletContextListener} that was neither declared in
      *                                       <code>web.xml</code> or <code>web-fragment.xml</code>, nor annotated with
      *                                       {@link javax.servlet.annotation.WebListener}
-     *
      * @since Servlet 3.0
      */
     public <T extends Servlet> T createServlet(Class<T> clazz) throws ServletException;
@@ -795,16 +708,13 @@ public interface ServletContext {
      * Gets the ServletRegistration corresponding to the servlet with the given <tt>servletName</tt>.
      *
      * @param servletName the name of a servlet
-     *
      * @return the (complete or preliminary) ServletRegistration for the servlet with the given <tt>servletName</tt>, or
-     *         null if no ServletRegistration exists under that name
-     *
+     * null if no ServletRegistration exists under that name
      * @throws UnsupportedOperationException if this ServletContext was passed to the
      *                                       {@link ServletContextListener#contextInitialized} method of a
      *                                       {@link ServletContextListener} that was neither declared in
      *                                       <code>web.xml</code> or <code>web-fragment.xml</code>, nor annotated with
      *                                       {@link javax.servlet.annotation.WebListener}
-     *
      * @since Servlet 3.0
      */
     public ServletRegistration getServletRegistration(String servletName);
@@ -822,14 +732,12 @@ public interface ServletContext {
      * If permitted, any changes to the returned Map must not affect this ServletContext.
      *
      * @return Map of the (complete and preliminary) ServletRegistration objects corresponding to all servlets currently
-     *         registered with this ServletContext
-     *
+     * registered with this ServletContext
      * @throws UnsupportedOperationException if this ServletContext was passed to the
      *                                       {@link ServletContextListener#contextInitialized} method of a
      *                                       {@link ServletContextListener} that was neither declared in
      *                                       <code>web.xml</code> or <code>web-fragment.xml</code>, nor annotated with
      *                                       {@link javax.servlet.annotation.WebListener}
-     *
      * @since Servlet 3.0
      */
     public Map<String, ? extends ServletRegistration> getServletRegistrations();
@@ -855,21 +763,16 @@ public interface ServletContext {
      *
      * @param filterName the name of the filter
      * @param className  the fully qualified class name of the filter
-     *
      * @return a FilterRegistration object that may be used to further configure the registered filter, or <tt>null</tt>
-     *         if this ServletContext already contains a complete FilterRegistration for a filter with the given
-     *         <tt>filterName</tt>
-     *
+     * if this ServletContext already contains a complete FilterRegistration for a filter with the given
+     * <tt>filterName</tt>
      * @throws IllegalStateException         if this ServletContext has already been initialized
-     *
      * @throws IllegalArgumentException      if <code>filterName</code> is null or an empty String
-     *
      * @throws UnsupportedOperationException if this ServletContext was passed to the
      *                                       {@link ServletContextListener#contextInitialized} method of a
      *                                       {@link ServletContextListener} that was neither declared in
      *                                       <code>web.xml</code> or <code>web-fragment.xml</code>, nor annotated with
      *                                       {@link javax.servlet.annotation.WebListener}
-     *
      * @since Servlet 3.0
      */
     public FilterRegistration.Dynamic addFilter(String filterName, String className);
@@ -887,22 +790,17 @@ public interface ServletContext {
      *
      * @param filterName the name of the filter
      * @param filter     the filter instance to register
-     *
      * @return a FilterRegistration object that may be used to further configure the given filter, or <tt>null</tt> if
-     *         this ServletContext already contains a complete FilterRegistration for a filter with the given
-     *         <tt>filterName</tt> or if the same filter instance has already been registered with this or another
-     *         ServletContext in the same container
-     *
+     * this ServletContext already contains a complete FilterRegistration for a filter with the given
+     * <tt>filterName</tt> or if the same filter instance has already been registered with this or another
+     * ServletContext in the same container
      * @throws IllegalStateException         if this ServletContext has already been initialized
-     *
      * @throws IllegalArgumentException      if <code>filterName</code> is null or an empty String
-     *
      * @throws UnsupportedOperationException if this ServletContext was passed to the
      *                                       {@link ServletContextListener#contextInitialized} method of a
      *                                       {@link ServletContextListener} that was neither declared in
      *                                       <code>web.xml</code> or <code>web-fragment.xml</code>, nor annotated with
      *                                       {@link javax.servlet.annotation.WebListener}
-     *
      * @since Servlet 3.0
      */
     public FilterRegistration.Dynamic addFilter(String filterName, Filter filter);
@@ -924,21 +822,16 @@ public interface ServletContext {
      *
      * @param filterName  the name of the filter
      * @param filterClass the class object from which the filter will be instantiated
-     *
      * @return a FilterRegistration object that may be used to further configure the registered filter, or <tt>null</tt>
-     *         if this ServletContext already contains a complete FilterRegistration for a filter with the given
-     *         <tt>filterName</tt>
-     *
+     * if this ServletContext already contains a complete FilterRegistration for a filter with the given
+     * <tt>filterName</tt>
      * @throws IllegalStateException         if this ServletContext has already been initialized
-     *
      * @throws IllegalArgumentException      if <code>filterName</code> is null or an empty String
-     *
      * @throws UnsupportedOperationException if this ServletContext was passed to the
      *                                       {@link ServletContextListener#contextInitialized} method of a
      *                                       {@link ServletContextListener} that was neither declared in
      *                                       <code>web.xml</code> or <code>web-fragment.xml</code>, nor annotated with
      *                                       {@link javax.servlet.annotation.WebListener}
-     *
      * @since Servlet 3.0
      */
     public FilterRegistration.Dynamic addFilter(String filterName, Class<? extends Filter> filterClass);
@@ -948,7 +841,7 @@ public interface ServletContext {
      *
      * <p>
      * The returned Filter instance may be further customized before it is registered with this ServletContext via a
-     * call to {@link #addFilter(String,Filter)}.
+     * call to {@link #addFilter(String, Filter)}.
      *
      * <p>
      * The given Filter class must define a zero argument constructor, which is used to instantiate it.
@@ -957,19 +850,15 @@ public interface ServletContext {
      * This method supports resource injection if the given <tt>clazz</tt> represents a Managed Bean. See the Jakarta EE
      * platform and CDI specifications for additional details about Managed Beans and resource injection.
      *
-     * @param       <T> the class of the Filter to create
+     * @param <T>   the class of the Filter to create
      * @param clazz the Filter class to instantiate
-     *
      * @return the new Filter instance
-     *
      * @throws ServletException              if the given <tt>clazz</tt> fails to be instantiated
-     *
      * @throws UnsupportedOperationException if this ServletContext was passed to the
      *                                       {@link ServletContextListener#contextInitialized} method of a
      *                                       {@link ServletContextListener} that was neither declared in
      *                                       <code>web.xml</code> or <code>web-fragment.xml</code>, nor annotated with
      *                                       {@link javax.servlet.annotation.WebListener}
-     *
      * @since Servlet 3.0
      */
     public <T extends Filter> T createFilter(Class<T> clazz) throws ServletException;
@@ -979,14 +868,12 @@ public interface ServletContext {
      *
      * @param filterName the name of a filter
      * @return the (complete or preliminary) FilterRegistration for the filter with the given <tt>filterName</tt>, or
-     *         null if no FilterRegistration exists under that name
-     *
+     * null if no FilterRegistration exists under that name
      * @throws UnsupportedOperationException if this ServletContext was passed to the
      *                                       {@link ServletContextListener#contextInitialized} method of a
      *                                       {@link ServletContextListener} that was neither declared in
      *                                       <code>web.xml</code> or <code>web-fragment.xml</code>, nor annotated with
      *                                       {@link javax.servlet.annotation.WebListener}
-     *
      * @since Servlet 3.0
      */
     public FilterRegistration getFilterRegistration(String filterName);
@@ -1004,14 +891,12 @@ public interface ServletContext {
      * Any changes to the returned Map must not affect this ServletContext.
      *
      * @return Map of the (complete and preliminary) FilterRegistration objects corresponding to all filters currently
-     *         registered with this ServletContext
-     *
+     * registered with this ServletContext
      * @throws UnsupportedOperationException if this ServletContext was passed to the
      *                                       {@link ServletContextListener#contextInitialized} method of a
      *                                       {@link ServletContextListener} that was neither declared in
      *                                       <code>web.xml</code> or <code>web-fragment.xml</code>, nor annotated with
      *                                       {@link javax.servlet.annotation.WebListener}
-     *
      * @since Servlet 3.0
      */
     public Map<String, ? extends FilterRegistration> getFilterRegistrations();
@@ -1024,14 +909,12 @@ public interface ServletContext {
      * Repeated invocations of this method will return the same <tt>SessionCookieConfig</tt> instance.
      *
      * @return the <tt>SessionCookieConfig</tt> object through which various properties of the session tracking cookies
-     *         created on behalf of this <tt>ServletContext</tt> may be configured
-     *
+     * created on behalf of this <tt>ServletContext</tt> may be configured
      * @throws UnsupportedOperationException if this ServletContext was passed to the
      *                                       {@link ServletContextListener#contextInitialized} method of a
      *                                       {@link ServletContextListener} that was neither declared in
      *                                       <code>web.xml</code> or <code>web-fragment.xml</code>, nor annotated with
      *                                       {@link javax.servlet.annotation.WebListener}
-     *
      * @since Servlet 3.0
      */
     public SessionCookieConfig getSessionCookieConfig();
@@ -1045,21 +928,17 @@ public interface ServletContext {
      *
      * @param sessionTrackingModes the set of session tracking modes to become effective for this
      *                             <tt>ServletContext</tt>
-     *
      * @throws IllegalStateException         if this ServletContext has already been initialized
-     *
      * @throws UnsupportedOperationException if this ServletContext was passed to the
      *                                       {@link ServletContextListener#contextInitialized} method of a
      *                                       {@link ServletContextListener} that was neither declared in
      *                                       <code>web.xml</code> or <code>web-fragment.xml</code>, nor annotated with
      *                                       {@link javax.servlet.annotation.WebListener}
-     *
      * @throws IllegalArgumentException      if <tt>sessionTrackingModes</tt> specifies a combination of
      *                                       <tt>SessionTrackingMode.SSL</tt> with a session tracking mode other than
      *                                       <tt>SessionTrackingMode.SSL</tt>, or if <tt>sessionTrackingModes</tt>
      *                                       specifies a session tracking mode that is not supported by the servlet
      *                                       container
-     *
      * @since Servlet 3.0
      */
     public void setSessionTrackingModes(Set<SessionTrackingMode> sessionTrackingModes);
@@ -1073,13 +952,11 @@ public interface ServletContext {
      * </p>
      *
      * @return set of the session tracking modes supported by default for this <tt>ServletContext</tt>
-     *
      * @throws UnsupportedOperationException if this ServletContext was passed to the
      *                                       {@link ServletContextListener#contextInitialized} method of a
      *                                       {@link ServletContextListener} that was neither declared in
      *                                       <code>web.xml</code> or <code>web-fragment.xml</code>, nor annotated with
      *                                       {@link javax.servlet.annotation.WebListener}
-     *
      * @since Servlet 3.0
      */
     public Set<SessionTrackingMode> getDefaultSessionTrackingModes();
@@ -1097,13 +974,11 @@ public interface ServletContext {
      * </p>
      *
      * @return set of the session tracking modes in effect for this <tt>ServletContext</tt>
-     *
      * @throws UnsupportedOperationException if this ServletContext was passed to the
      *                                       {@link ServletContextListener#contextInitialized} method of a
      *                                       {@link ServletContextListener} that was neither declared in
      *                                       <code>web.xml</code> or <code>web-fragment.xml</code>, nor annotated with
      *                                       {@link javax.servlet.annotation.WebListener}
-     *
      * @since Servlet 3.0
      */
     public Set<SessionTrackingMode> getEffectiveSessionTrackingModes();
@@ -1143,20 +1018,16 @@ public interface ServletContext {
      * injection.
      *
      * @param className the fully qualified class name of the listener
-     *
      * @throws IllegalArgumentException      if the class with the given name does not implement any of the above
      *                                       interfaces, or if it implements {@link ServletContextListener} and this
      *                                       ServletContext was not passed to
      *                                       {@link ServletContainerInitializer#onStartup}
-     *
      * @throws IllegalStateException         if this ServletContext has already been initialized
-     *
      * @throws UnsupportedOperationException if this ServletContext was passed to the
      *                                       {@link ServletContextListener#contextInitialized} method of a
      *                                       {@link ServletContextListener} that was neither declared in
      *                                       <code>web.xml</code> or <code>web-fragment.xml</code>, nor annotated with
      *                                       {@link javax.servlet.annotation.WebListener}
-     *
      * @since Servlet 3.0
      */
     public void addListener(String className);
@@ -1185,22 +1056,18 @@ public interface ServletContext {
      * or {@link javax.servlet.http.HttpSessionListener}), then the listener will be added to the end of the ordered
      * list of listeners of that interface.
      *
-     * @param   <T> the class of the EventListener to add
-     * @param t the listener to be added
-     *
+     * @param <T> the class of the EventListener to add
+     * @param t   the listener to be added
      * @throws IllegalArgumentException      if the given listener is not an instance of any of the above interfaces, or
      *                                       if it is an instance of {@link ServletContextListener} and this
      *                                       ServletContext was not passed to
      *                                       {@link ServletContainerInitializer#onStartup}
-     *
      * @throws IllegalStateException         if this ServletContext has already been initialized
-     *
      * @throws UnsupportedOperationException if this ServletContext was passed to the
      *                                       {@link ServletContextListener#contextInitialized} method of a
      *                                       {@link ServletContextListener} that was neither declared in
      *                                       <code>web.xml</code> or <code>web-fragment.xml</code>, nor annotated with
      *                                       {@link javax.servlet.annotation.WebListener}
-     *
      * @since Servlet 3.0
      */
     public <T extends EventListener> void addListener(T t);
@@ -1235,20 +1102,16 @@ public interface ServletContext {
      * Jakarta EE platform and CDI specifications for additional details about Managed Beans and resource injection.
      *
      * @param listenerClass the listener class to be instantiated
-     *
      * @throws IllegalArgumentException      if the given <tt>listenerClass</tt> does not implement any of the above
      *                                       interfaces, or if it implements {@link ServletContextListener} and this
      *                                       ServletContext was not passed to
      *                                       {@link ServletContainerInitializer#onStartup}
-     *
      * @throws IllegalStateException         if this ServletContext has already been initialized
-     *
      * @throws UnsupportedOperationException if this ServletContext was passed to the
      *                                       {@link ServletContextListener#contextInitialized} method of a
      *                                       {@link ServletContextListener} that was neither declared in
      *                                       <code>web.xml</code> or <code>web-fragment.xml</code>, nor annotated with
      *                                       {@link javax.servlet.annotation.WebListener}
-     *
      * @since Servlet 3.0
      */
     public void addListener(Class<? extends EventListener> listenerClass);
@@ -1273,49 +1136,41 @@ public interface ServletContext {
      * This method supports resource injection if the given <tt>clazz</tt> represents a Managed Bean. See the Jakarta EE
      * platform and CDI specifications for additional details about Managed Beans and resource injection.
      *
-     * @param       <T> the class of the EventListener to create
+     * @param <T>   the class of the EventListener to create
      * @param clazz the EventListener class to instantiate
-     *
      * @return the new EventListener instance
-     *
      * @throws ServletException              if the given <tt>clazz</tt> fails to be instantiated
-     *
      * @throws UnsupportedOperationException if this ServletContext was passed to the
      *                                       {@link ServletContextListener#contextInitialized} method of a
      *                                       {@link ServletContextListener} that was neither declared in
      *                                       <code>web.xml</code> or <code>web-fragment.xml</code>, nor annotated with
      *                                       {@link javax.servlet.annotation.WebListener}
-     *
      * @throws IllegalArgumentException      if the specified EventListener class does not implement any of the
      *                                       {@link ServletContextListener}, {@link ServletContextAttributeListener},
      *                                       {@link ServletRequestListener}, {@link ServletRequestAttributeListener},
      *                                       {@link javax.servlet.http.HttpSessionAttributeListener},
      *                                       {@link javax.servlet.http.HttpSessionIdListener}, or
      *                                       {@link javax.servlet.http.HttpSessionListener} interfaces.
-     *
      * @since Servlet 3.0
      */
-    public <T extends EventListener> T createListener(Class<T> clazz) throws ServletException;
+    <T extends EventListener> T createListener(Class<T> clazz) throws ServletException;
 
     /**
      * Gets the <code>&lt;jsp-config&gt;</code> related configuration that was aggregated from the <code>web.xml</code>
      * and <code>web-fragment.xml</code> descriptor files of the web application represented by this ServletContext.
      *
      * @return the <code>&lt;jsp-config&gt;</code> related configuration that was aggregated from the
-     *         <code>web.xml</code> and <code>web-fragment.xml</code> descriptor files of the web application
-     *         represented by this ServletContext, or null if no such configuration exists
-     *
+     * <code>web.xml</code> and <code>web-fragment.xml</code> descriptor files of the web application
+     * represented by this ServletContext, or null if no such configuration exists
      * @throws UnsupportedOperationException if this ServletContext was passed to the
      *                                       {@link ServletContextListener#contextInitialized} method of a
      *                                       {@link ServletContextListener} that was neither declared in
      *                                       <code>web.xml</code> or <code>web-fragment.xml</code>, nor annotated with
      *                                       {@link javax.servlet.annotation.WebListener}
-     *
      * @see javax.servlet.descriptor.JspConfigDescriptor
-     *
      * @since Servlet 3.0
      */
-    public JspConfigDescriptor getJspConfigDescriptor();
+    JspConfigDescriptor getJspConfigDescriptor();
 
     /**
      * Gets the class loader of the web application represented by this ServletContext.
@@ -1327,18 +1182,15 @@ public interface ServletContext {
      * should be granted.
      *
      * @return the class loader of the web application represented by this ServletContext
-     *
      * @throws UnsupportedOperationException if this ServletContext was passed to the
      *                                       {@link ServletContextListener#contextInitialized} method of a
      *                                       {@link ServletContextListener} that was neither declared in
      *                                       <code>web.xml</code> or <code>web-fragment.xml</code>, nor annotated with
      *                                       {@link javax.servlet.annotation.WebListener}
-     *
      * @throws SecurityException             if a security manager denies access to the requested class loader
-     *
      * @since Servlet 3.0
      */
-    public ClassLoader getClassLoader();
+    ClassLoader getClassLoader();
 
     /**
      * Declares role names that are tested using <code>isUserInRole</code>.
@@ -1350,73 +1202,62 @@ public interface ServletContext {
      * interface need not be declared.
      *
      * @param roleNames the role names being declared
-     *
      * @throws UnsupportedOperationException if this ServletContext was passed to the
      *                                       {@link ServletContextListener#contextInitialized} method of a
      *                                       {@link ServletContextListener} that was neither declared in
      *                                       <code>web.xml</code> or <code>web-fragment.xml</code>, nor annotated with
      *                                       {@link javax.servlet.annotation.WebListener}
-     *
      * @throws IllegalArgumentException      if any of the argument roleNames is null or the empty string
-     *
      * @throws IllegalStateException         if the ServletContext has already been initialized
-     *
      * @since Servlet 3.0
      */
-    public void declareRoles(String... roleNames);
+    void declareRoles(String... roleNames);
 
     /**
      * Returns the configuration name of the logical host on which the ServletContext is deployed.
-     *
+     * <p>
      * Servlet containers may support multiple logical hosts. This method must return the same name for all the servlet
      * contexts deployed on a logical host, and the name returned by this method must be distinct, stable per logical
      * host, and suitable for use in associating server configuration information with the logical host. The returned
      * value is NOT expected or required to be equivalent to a network address or hostname of the logical host.
      *
      * @return a <code>String</code> containing the configuration name of the logical host on which the servlet context
-     *         is deployed.
-     *
+     * is deployed.
      * @throws UnsupportedOperationException if this ServletContext was passed to the
      *                                       {@link ServletContextListener#contextInitialized} method of a
      *                                       {@link ServletContextListener} that was neither declared in
      *                                       <code>web.xml</code> or <code>web-fragment.xml</code>, nor annotated with
      *                                       {@link javax.servlet.annotation.WebListener}
-     *
      * @since Servlet 3.1
      */
-    public String getVirtualServerName();
+    String getVirtualServerName();
 
     /**
      * Gets the session timeout in minutes that are supported by default for this <tt>ServletContext</tt>.
      *
      * @return the session timeout in minutes that are supported by default for this <tt>ServletContext</tt>
-     *
      * @throws UnsupportedOperationException if this ServletContext was passed to the
      *                                       {@link ServletContextListener#contextInitialized} method of a
      *                                       {@link ServletContextListener} that was neither declared in
      *                                       <code>web.xml</code> or <code>web-fragment.xml</code>, nor annotated with
      *                                       {@link javax.servlet.annotation.WebListener}
-     *
      * @since Servlet 4.0
      */
-    public int getSessionTimeout();
+    int getSessionTimeout();
 
     /**
      * Sets the session timeout in minutes for this ServletContext.
      *
      * @param sessionTimeout session timeout in minutes
-     *
      * @throws IllegalStateException         if this ServletContext has already been initialized
-     *
      * @throws UnsupportedOperationException if this ServletContext was passed to the
      *                                       {@link ServletContextListener#contextInitialized} method of a
      *                                       {@link ServletContextListener} that was neither declared in
      *                                       <code>web.xml</code> or <code>web-fragment.xml</code>, nor annotated with
      *                                       {@link javax.servlet.annotation.WebListener}
-     *
      * @since Servlet 4.0
      */
-    public void setSessionTimeout(int sessionTimeout);
+    void setSessionTimeout(int sessionTimeout);
 
     /**
      * Gets the request character encoding that are supported by default for this <tt>ServletContext</tt>. This method
@@ -1424,33 +1265,28 @@ public interface ServletContext {
      * specific configuration (for all web applications in the container).
      *
      * @return the request character encoding that are supported by default for this <tt>ServletContext</tt>
-     *
      * @throws UnsupportedOperationException if this ServletContext was passed to the
      *                                       {@link ServletContextListener#contextInitialized} method of a
      *                                       {@link ServletContextListener} that was neither declared in
      *                                       <code>web.xml</code> or <code>web-fragment.xml</code>, nor annotated with
      *                                       {@link javax.servlet.annotation.WebListener}
-     *
      * @since Servlet 4.0
      */
-    public String getRequestCharacterEncoding();
+    String getRequestCharacterEncoding();
 
     /**
      * Sets the request character encoding for this ServletContext.
      *
      * @param encoding request character encoding
-     *
      * @throws IllegalStateException         if this ServletContext has already been initialized
-     *
      * @throws UnsupportedOperationException if this ServletContext was passed to the
      *                                       {@link ServletContextListener#contextInitialized} method of a
      *                                       {@link ServletContextListener} that was neither declared in
      *                                       <code>web.xml</code> or <code>web-fragment.xml</code>, nor annotated with
      *                                       {@link javax.servlet.annotation.WebListener}
-     *
      * @since Servlet 4.0
      */
-    public void setRequestCharacterEncoding(String encoding);
+    void setRequestCharacterEncoding(String encoding);
 
     /**
      * Gets the response character encoding that are supported by default for this <tt>ServletContext</tt>. This method
@@ -1458,31 +1294,26 @@ public interface ServletContext {
      * specific configuration (for all web applications in the container).
      *
      * @return the request character encoding that are supported by default for this <tt>ServletContext</tt>
-     *
      * @throws UnsupportedOperationException if this ServletContext was passed to the
      *                                       {@link ServletContextListener#contextInitialized} method of a
      *                                       {@link ServletContextListener} that was neither declared in
      *                                       <code>web.xml</code> or <code>web-fragment.xml</code>, nor annotated with
      *                                       {@link javax.servlet.annotation.WebListener}
-     *
      * @since Servlet 4.0
      */
-    public String getResponseCharacterEncoding();
+    String getResponseCharacterEncoding();
 
     /**
      * Sets the response character encoding for this ServletContext.
      *
      * @param encoding response character encoding
-     *
      * @throws IllegalStateException         if this ServletContext has already been initialized
-     *
      * @throws UnsupportedOperationException if this ServletContext was passed to the
      *                                       {@link ServletContextListener#contextInitialized} method of a
      *                                       {@link ServletContextListener} that was neither declared in
      *                                       <code>web.xml</code> or <code>web-fragment.xml</code>, nor annotated with
      *                                       {@link javax.servlet.annotation.WebListener}
-     *
      * @since Servlet 4.0
      */
-    public void setResponseCharacterEncoding(String encoding);
+    void setResponseCharacterEncoding(String encoding);
 }

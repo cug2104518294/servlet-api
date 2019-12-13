@@ -1,21 +1,3 @@
-/*
- * Copyright (c) 1997-2018 Oracle and/or its affiliates and others.
- * All rights reserved.
- * Copyright 2004 The Apache Software Foundation  
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package javax.servlet;
 
 import java.io.IOException;
@@ -23,7 +5,6 @@ import java.util.Enumeration;
 import java.util.ResourceBundle;
 
 /**
- *
  * Defines a generic, protocol-independent servlet. To write an HTTP servlet for use on the Web, extend
  * {@link javax.servlet.http.HttpServlet} instead.
  *
@@ -41,21 +22,18 @@ import java.util.ResourceBundle;
  * <p>
  * To write a generic servlet, you need only override the abstract <code>service</code> method.
  *
- *
  * @author Various
  */
 public abstract class GenericServlet implements Servlet, ServletConfig, java.io.Serializable {
+
     private static final long serialVersionUID = -8592279577370996712L;
 
     private static final String LSTRING_FILE = "javax.servlet.LocalStrings";
     private static ResourceBundle lStrings = ResourceBundle.getBundle(LSTRING_FILE);
-
     private transient ServletConfig config;
 
     /**
-     *
      * Does nothing. All of the servlet initialization is done by one of the <code>init</code> methods.
-     *
      */
     public GenericServlet() {
     }
@@ -63,8 +41,6 @@ public abstract class GenericServlet implements Servlet, ServletConfig, java.io.
     /**
      * Called by the servlet container to indicate to a servlet that the servlet is being taken out of service. See
      * {@link Servlet#destroy}.
-     *
-     * 
      */
     @Override
     public void destroy() {
@@ -79,9 +55,7 @@ public abstract class GenericServlet implements Servlet, ServletConfig, java.io.
      * <code>ServletConfig</code> object.
      *
      * @param name a <code>String</code> specifying the name of the initialization parameter
-     *
      * @return String a <code>String</code> containing the value of the initialization parameter
-     *
      */
     @Override
     public String getInitParameter(String name) {
@@ -89,7 +63,6 @@ public abstract class GenericServlet implements Servlet, ServletConfig, java.io.
         if (sc == null) {
             throw new IllegalStateException(lStrings.getString("err.servlet_config_not_initialized"));
         }
-
         return sc.getInitParameter(name);
     }
 
@@ -102,9 +75,8 @@ public abstract class GenericServlet implements Servlet, ServletConfig, java.io.
      * This method is supplied for convenience. It gets the parameter names from the servlet's
      * <code>ServletConfig</code> object.
      *
-     *
      * @return Enumeration an enumeration of <code>String</code> objects containing the names of the servlet's
-     *         initialization parameters
+     * initialization parameters
      */
     @Override
     public Enumeration<String> getInitParameterNames() {
@@ -112,7 +84,6 @@ public abstract class GenericServlet implements Servlet, ServletConfig, java.io.
         if (sc == null) {
             throw new IllegalStateException(lStrings.getString("err.servlet_config_not_initialized"));
         }
-
         return sc.getInitParameterNames();
     }
 
@@ -134,9 +105,8 @@ public abstract class GenericServlet implements Servlet, ServletConfig, java.io.
      * This method is supplied for convenience. It gets the context from the servlet's <code>ServletConfig</code>
      * object.
      *
-     *
      * @return ServletContext the <code>ServletContext</code> object passed to this servlet by the <code>init</code>
-     *         method
+     * method
      */
     @Override
     public ServletContext getServletContext() {
@@ -144,14 +114,12 @@ public abstract class GenericServlet implements Servlet, ServletConfig, java.io.
         if (sc == null) {
             throw new IllegalStateException(lStrings.getString("err.servlet_config_not_initialized"));
         }
-
         return sc.getServletContext();
     }
 
     /**
      * Returns information about the servlet, such as author, version, and copyright. By default, this method returns an
      * empty string. Override this method to have it return a meaningful value. See {@link Servlet#getServletInfo}.
-     *
      *
      * @return String information about this servlet, by default an empty string
      */
@@ -169,9 +137,7 @@ public abstract class GenericServlet implements Servlet, ServletConfig, java.io.
      * When overriding this form of the method, call <code>super.init(config)</code>.
      *
      * @param config the <code>ServletConfig</code> object that contains configuration information for this servlet
-     *
-     * @exception ServletException if an exception occurs that interrupts the servlet's normal operation
-     * 
+     * @throws ServletException if an exception occurs that interrupts the servlet's normal operation
      * @see UnavailableException
      */
     @Override
@@ -188,7 +154,7 @@ public abstract class GenericServlet implements Servlet, ServletConfig, java.io.
      * <code>GenericServlet.init(ServletConfig config)</code>. The <code>ServletConfig</code> object can still be
      * retrieved via {@link #getServletConfig}.
      *
-     * @exception ServletException if an exception occurs that interrupts the servlet's normal operation
+     * @throws ServletException if an exception occurs that interrupts the servlet's normal operation
      */
     public void init() throws ServletException {
 
@@ -208,9 +174,7 @@ public abstract class GenericServlet implements Servlet, ServletConfig, java.io.
      * Writes an explanatory message and a stack trace for a given <code>Throwable</code> exception to the servlet log
      * file, prepended by the servlet's name. See {@link ServletContext#log(String, Throwable)}.
      *
-     *
      * @param message a <code>String</code> that describes the error or exception
-     *
      * @param t       the <code>java.lang.Throwable</code> error or exception
      */
     public void log(String message, Throwable t) {
@@ -219,17 +183,14 @@ public abstract class GenericServlet implements Servlet, ServletConfig, java.io.
 
     /**
      * Called by the servlet container to allow the servlet to respond to a request. See {@link Servlet#service}.
-     * 
+     *
      * <p>
      * This method is declared abstract so subclasses, such as <code>HttpServlet</code>, must override it.
      *
      * @param req the <code>ServletRequest</code> object that contains the client's request
-     *
      * @param res the <code>ServletResponse</code> object that will contain the servlet's response
-     *
-     * @exception ServletException if an exception occurs that interferes with the servlet's normal operation occurred
-     *
-     * @exception IOException      if an input or output exception occurs
+     * @throws ServletException if an exception occurs that interferes with the servlet's normal operation occurred
+     * @throws IOException      if an input or output exception occurs
      */
     @Override
     public abstract void service(ServletRequest req, ServletResponse res) throws ServletException, IOException;
@@ -245,7 +206,6 @@ public abstract class GenericServlet implements Servlet, ServletConfig, java.io.
         if (sc == null) {
             throw new IllegalStateException(lStrings.getString("err.servlet_config_not_initialized"));
         }
-
         return sc.getServletName();
     }
 }

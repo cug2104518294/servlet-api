@@ -17,9 +17,9 @@
 
 package javax.servlet.http;
 
-import java.io.IOException;
 import javax.servlet.ServletInputStream;
 import javax.servlet.ServletOutputStream;
+import java.io.IOException;
 
 /**
  * This interface encapsulates the connection for an upgrade request. It allows the protocol handler to send service
@@ -32,8 +32,7 @@ public interface WebConnection extends AutoCloseable {
      * Returns an input stream for this web connection.
      *
      * @return a ServletInputStream for reading binary data
-     *
-     * @exception IOException if an I/O error occurs
+     * @throws IOException if an I/O error occurs
      */
     public ServletInputStream getInputStream() throws IOException;
 
@@ -41,8 +40,7 @@ public interface WebConnection extends AutoCloseable {
      * Returns an output stream for this web connection.
      *
      * @return a ServletOutputStream for writing binary data
-     *
-     * @exception IOException if an I/O error occurs
+     * @throws IOException if an I/O error occurs
      */
     public ServletOutputStream getOutputStream() throws IOException;
 }
